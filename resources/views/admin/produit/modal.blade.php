@@ -30,15 +30,40 @@
 
                     </div>
 
-                    <div class="col-xl-12">
+                    <div class="col-xl-6">
                         <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Prix   unitaire </label>
-                            <input type="number" class="form-control" id="prix_unitaire" name="prix_unitaire" ><br>
+                            <label for="exampleFormControlInput1" class="form-label">Prix   unitaire d achat  </label>
+                            <input type="number" class="form-control" id="prix_unitaire_achat" name="prix_unitaire_achat" ><br>
 
 
                         </div>
 
-                        <span class="text-danger error-text prix_unitaire_error"> </span>
+                        <span class="text-danger error-text prix_unitaire_achat_error"> </span>
+
+                    </div>
+
+
+                    <div class="col-xl-6">
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Prix   unitaire de vente  </label>
+                            <input type="number" class="form-control" id="prix_unitaire_vente" name="prix_unitaire_vente" ><br>
+
+
+                        </div>
+
+                        <span class="text-danger error-text prix_unitaire_vente_error"> </span>
+
+                    </div>
+
+                    <div class="col-xl-6">
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Prix   unitaire de stock </label>
+                            <input type="number" class="form-control" id="prix_unitaire_stock" name="prix_unitaire_stock" ><br>
+
+
+                        </div>
+
+                        <span class="text-danger error-text prix_unitaire_stock_error"> </span>
 
                     </div>
 
@@ -64,6 +89,19 @@
 
                     <div class="col-xl-6">
                         <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Unité de base   </label>
+
+                            <input type="text" class="form-control" id="unite" name="unite" ><br>
+
+                        </div>
+
+                        <span class="text-danger error-text unite_error"> </span>
+
+                    </div>
+
+
+                    <div class="col-xl-6">
+                        <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Unité d achat </label>
 
                             <input type="text" class="form-control" id="unite_achat" name="unite_achat" ><br>
@@ -71,19 +109,6 @@
                         </div>
 
                         <span class="text-danger error-text unite_achat_error"> </span>
-
-                    </div>
-
-
-                    <div class="col-xl-6">
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Unité de stock </label>
-
-                            <input type="text" class="form-control" id="unite_stock" name="unite_stock" ><br>
-
-                        </div>
-
-                        <span class="text-danger error-text unite_stock_error"> </span>
 
                     </div>
 

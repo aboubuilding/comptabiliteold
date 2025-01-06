@@ -31,9 +31,9 @@ class ProduitController extends Controller
 
                 "id"=>$produit->id,
                 "libelle"=>$produit->libelle == null ? ' ' :$produit->libelle,
-                "prix_unitaire"=>$produit->prix_unitaire == null ? ' ' :$produit->prix_unitaire,
-                "unite_stock"=>$produit->unite_stock == null ? ' ' :$produit->unite_stock,
-                "unite_achat"=>$produit->unite_achat == null ? ' ' :$produit->unite_achat,
+                "unite"=>$produit->unite == null ? ' ' :$produit->unite,
+                "prix_unitaire_achat"=>$produit->prix_unitaire_achat == null ? ' ' :$produit->prix_unitaire_achat,
+               
                 "type_produit"=>$produit->equivalence == null ? ' ' :$produit->type_produit,
 
 
@@ -65,9 +65,9 @@ class ProduitController extends Controller
 
         $validator = \Validator::make($request->all(),[
             'libelle'=>'required|string|max:25',
-            'prix_unitaire'=>'required',
+            'prix_unitaire_achat'=>'required',
 
-            'unite_achat'=>'required',
+            'unite'=>'required',
             'type_produit'=>'required',
 
 
@@ -77,8 +77,8 @@ class ProduitController extends Controller
             'libelle.required'=>'Le libellé  est obligatoire ',
             'libelle.string'=>'Le libellé  doit etre une chaine de caracteres ',
             'libelle.max'=>'Le libellé  ne peut pas depasser 25 caracteres ',
-            'prix_unitaire.required'=>'Le prix  est obligatoire  ',
-            'unite_achat.required'=>'Le prix  est obligatoire  ',
+            'prix_unitaire_achat.required'=>'Le prix d achat  est obligatoire  ',
+            'unite.required'=>'L unite est obligatoire  ',
             'type_produit.required'=>'Le type de produit   est obligatoire  ',
 
 
@@ -94,9 +94,12 @@ class ProduitController extends Controller
                  Produit::addProduit(
 
                     $request->libelle,
-                    $request->prix_unitaire,
+                    $request->prix_unitaire_achat,
+                    $request->prix_unitaire_vente,
+                    $request->prix_unitaire_stock,
+                  
                     $request->photo,
-                    $request->unite_stock,
+                    $request->unite,
                     $request->unite_achat,
                     $request->equivalence,
                     $request->type_produit,
@@ -121,19 +124,18 @@ class ProduitController extends Controller
         $validator = \Validator::make($request->all(),[
 
             'libelle'=>'required|string|max:25',
-            'prix_unitaire'=>'required',
+            'prix_unitaire_achat'=>'required',
 
-            'unite_achat'=>'required',
+            'unite'=>'required',
             'type_produit'=>'required',
-
 
 
         ],[
             'libelle.required'=>'Le libellé  est obligatoire ',
             'libelle.string'=>'Le libellé  doit etre une chaine de caracteres ',
             'libelle.max'=>'Le libellé  ne peut pas depasser 25 caracteres ',
-            'prix_unitaire.required'=>'Le prix  est obligatoire  ',
-            'unite_achat.required'=>'Le prix  est obligatoire  ',
+            'prix_unitaire_achat.required'=>'Le prix d achat  est obligatoire  ',
+            'unite.required'=>'L unite est obligatoire  ',
             'type_produit.required'=>'Le type de produit   est obligatoire  ',
 
 
@@ -147,9 +149,12 @@ class ProduitController extends Controller
                 Produit::updateProduit(
 
                     $request->libelle,
-                    $request->prix_unitaire,
+                    $request->prix_unitaire_achat,
+                    $request->prix_unitaire_vente,
+                    $request->prix_unitaire_stock,
+                  
                     $request->photo,
-                    $request->unite_stock,
+                    $request->unite,
                     $request->unite_achat,
                     $request->equivalence,
                     $request->type_produit,

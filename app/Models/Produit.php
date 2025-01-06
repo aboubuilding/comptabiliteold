@@ -26,9 +26,11 @@ class Produit extends Model
 
 
         'libelle',
-        'prix_unitaire',
+        'prix_unitaire_achat',
+        'prix_unitaire_vente',
+        'prix_unitaire_stock',
         'photo',
-        'unite_stock',
+        'unite',
         'unite_achat',
         'equivalence',
         'type_produit',
@@ -46,11 +48,14 @@ class Produit extends Model
      *
 
      * @param  string $libelle
-     * @param  int $prix_unitaire
+     * @param  int $prix_unitaire_achat
+     * @param  int $prix_unitaire_vente
+     * @param  int $prix_unitaire_stock
      * @param  string $photo
-     * @param  string $unite_stock
+     * @param  string $unite
      * @param  string $unite_achat
      * @param  float $equivalence
+    
      * @param  int $type_produit
 
 
@@ -59,12 +64,15 @@ class Produit extends Model
 
     public static function addProduit(
         $libelle,
-        $prix_unitaire,
+        $prix_unitaire_achat,
+        $prix_unitaire_vente,
+        $prix_unitaire_stock,
         $photo,
-        $unite_stock,
+        $unite,
         $unite_achat,
         $equivalence,
         $type_produit
+    
 
 
     )
@@ -73,9 +81,11 @@ class Produit extends Model
 
 
         $produit->libelle = $libelle;
-        $produit->prix_unitaire = $prix_unitaire;
+        $produit->prix_unitaire_achat = $prix_unitaire_achat;
+        $produit->prix_unitaire_vente = $prix_unitaire_vente;
+        $produit->prix_unitaire_stock = $prix_unitaire_stock;
         $produit->photo = $photo;
-        $produit->unite_stock = $unite_stock;
+        $produit->unite = $unite;
         $produit->unite_achat = $unite_achat;
         $produit->equivalence = $equivalence;
         $produit->type_produit = $type_produit;
@@ -103,13 +113,17 @@ class Produit extends Model
     /**
      * Update d'une Produit
 
-      * @param  string $libelle
-     * @param  int $prix_unitaire
+     * @param  string $libelle
+     * @param  int $prix_unitaire_achat
+     * @param  int $prix_unitaire_vente
+     * @param  int $prix_unitaire_stock
      * @param  string $photo
-     * @param  string $unite_stock
+     * @param  string $unite
      * @param  string $unite_achat
      * @param  float $equivalence
+    
      * @param  int $type_produit
+
 
 
 
@@ -118,10 +132,12 @@ class Produit extends Model
      */
 
     public static function updateProduit(
-        $libelle,
-        $prix_unitaire,
+         $libelle,
+        $prix_unitaire_achat,
+        $prix_unitaire_vente,
+        $prix_unitaire_stock,
         $photo,
-        $unite_stock,
+        $unite,
         $unite_achat,
         $equivalence,
         $type_produit,
@@ -137,10 +153,14 @@ class Produit extends Model
 
 
             'libelle' => $libelle,
-            'prix_unitaire' => $prix_unitaire,
+            'prix_unitaire_achat' => $prix_unitaire_achat,
+            'prix_unitaire_vente' => $prix_unitaire_vente,
+            'prix_unitaire_stock' => $prix_unitaire_stock,
+            
             'photo' => $photo,
-            'unite_stock' => $unite_stock,
+            'unite' => $unite,
             'unite_achat' => $unite_achat,
+         
             'equivalence' => $equivalence,
             'type_produit' => $type_produit,
 
@@ -183,14 +203,14 @@ class Produit extends Model
      * Retourne le nombre de produits    par  annnee ...
 
 
-
-
+ * @param  int $type_produit
+    
          * @return  array
      */
 
     public static function getListe(
 
-
+  $type_produit = null,
 
 
 
@@ -202,8 +222,10 @@ class Produit extends Model
 
         ->orderBy('produits.libelle', 'ASC');
 
+         if ($type_produit != null) {
 
-
+            $query->where('type_produit', '=', $type_produit);
+        }
 
 
           return     $query->get();
@@ -219,7 +241,7 @@ class Produit extends Model
 
 
 
-
+ * @param  int $type_produit
 
 
      * @return  int $total
@@ -227,6 +249,7 @@ class Produit extends Model
 
     public static function getTotal(
 
+ $type_produit = null,
 
     ){
 
@@ -234,6 +257,12 @@ class Produit extends Model
 
            where('produits.etat', '!=', TypeStatus::SUPPRIME)
            ;
+
+
+             if ($type_produit != null) {
+
+            $query->where('type_produit', '=', $type_produit);
+        }
 
 
 

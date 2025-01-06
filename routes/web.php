@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-require base_path('routes/cantine.php');
+
 require base_path('routes/car.php');
 require base_path('routes/livre.php');
 
@@ -39,6 +39,18 @@ Route::middleware(['admin', 'comptable', 'directeur'])->group(function () {
 
 
 
+        //----------------- Inscriptions
+
+        Route::get('/eleves/index', [App\Http\Controllers\Admin\EleveController::class, 'index'])->name('admin_eleves_index');
+        Route::get('/eleves/add', [App\Http\Controllers\Admin\EleveController::class, 'add'])->name('admin_eleves_add');
+        Route::post('/eleves/save', [App\Http\Controllers\Admin\EleveController::class, 'store'])->name('admin_eleves_store');
+        Route::get('/eleves/modifier/{id}', [App\Http\Controllers\Admin\EleveController::class, 'edit'])->name('admin_eleves_edit');
+        Route::post('/eleves/update/{id}', [App\Http\Controllers\Admin\EleveController::class, 'update'])->name('admin_eleves_update');
+        Route::post('/eleves/delete/{id}', [App\Http\Controllers\Admin\EleveController::class, 'delete'])->name('admin_eleves_delete');
+
+
+
+
 //-----------------  Inscriptions
 
     Route::get('/inscriptions/cycles', [App\Http\Controllers\Admin\InscriptionController::class, 'cycles'])->name('admin_chiffre_cycles');
@@ -65,7 +77,7 @@ Route::middleware(['admin', 'comptable', 'directeur'])->group(function () {
     Route::post('/paiements/delete/{id}', [\App\Http\Controllers\Admin\PaiementController::class, 'delete'])->name('admin_paiements_delete');
     Route::get('/paiements/charger/{id}', [App\Http\Controllers\Admin\PaiementController::class, 'charger'])->name('admin_paiements_charger');
 
-        //----------------- Banques
+     //----------------- Banques
 
     Route::get('/banques/index', [App\Http\Controllers\Admin\BanqueController::class, 'index'])->name('admin_banque_index');
     Route::get('/banques/add', [App\Http\Controllers\Admin\BanqueController::class, 'add'])->name('admin_banque_add');
@@ -236,6 +248,74 @@ Route::post('/articles/save', [App\Http\Controllers\Admin\ArticleController::cla
 Route::get('/articles/modifier/{id}', [App\Http\Controllers\Admin\ArticleController::class, 'edit'])->name('admin_articles_edit');
  Route::post('/articles/update/{id}', [App\Http\Controllers\Admin\ArticleController::class, 'update'])->name('admin_articles_update');
 Route::post('/articles/delete/{id}', [App\Http\Controllers\Admin\ArticleController::class, 'delete'])->name('admin_articles_delete');
+
+
+
+
+
+// CANTINE
+
+
+    //----------------- Cantines
+
+    Route::get('/cantines/index', [App\Http\Controllers\Admin\CantineController::class, 'index'])->name('admin_cantines_index');
+    Route::get('/cantines/tableau', [App\Http\Controllers\Admin\CantineController::class, 'tableau'])->name('admin_cantines_tableau');
+    Route::get('/cantines/add', [App\Http\Controllers\Admin\CantineController::class, 'add'])->name('admin_cantines_add');
+    Route::post('/cantines/save', [App\Http\Controllers\Admin\CantineController::class, 'store'])->name('admin_cantines_store');
+    Route::get('/cantines/modifier/{id}', [App\Http\Controllers\Admin\CantineController::class, 'edit'])->name('admin_cantines_edit');
+    Route::post('/cantines/update/{id}', [App\Http\Controllers\Admin\CantineController::class, 'update'])->name('admin_cantines_update');
+    Route::post('/cantines/delete/{id}', [App\Http\Controllers\Admin\CantineController::class, 'delete'])->name('admin_cantines_delete');
+
+
+    //----------------- Magasins
+
+    Route::get('/magasins/index', [App\Http\Controllers\Admin\MagasinController::class, 'index'])->name('admin_magasins_index');
+    Route::get('/magasins/add', [App\Http\Controllers\Admin\MagasinController::class, 'add'])->name('admin_magasins_add');
+    Route::post('/magasins/save', [App\Http\Controllers\Admin\MagasinController::class, 'store'])->name('admin_magasins_store');
+    Route::get('/magasins/modifier/{id}', [App\Http\Controllers\Admin\MagasinController::class, 'edit'])->name('admin_magasins_edit');
+    Route::post('/magasins/update/{id}', [App\Http\Controllers\Admin\MagasinController::class, 'update'])->name('admin_magasins_update');
+    Route::post('/magasins/delete/{id}', [App\Http\Controllers\Admin\MagasinController::class, 'delete'])->name('admin_magasins_delete');
+
+
+
+    //----------------- Produits
+
+    Route::get('/produits/index', [App\Http\Controllers\Admin\ProduitController::class, 'index'])->name('admin_produits_index');
+    Route::get('/produits/add', [App\Http\Controllers\Admin\ProduitController::class, 'add'])->name('admin_produits_add');
+    Route::post('/produits/save', [App\Http\Controllers\Admin\ProduitController::class, 'store'])->name('admin_produits_store');
+    Route::get('/produits/modifier/{id}', [App\Http\Controllers\Admin\ProduitController::class, 'edit'])->name('admin_produits_edit');
+    Route::post('/produits/update/{id}', [App\Http\Controllers\Admin\ProduitController::class, 'update'])->name('admin_produits_update');
+    Route::post('/produits/delete/{id}', [App\Http\Controllers\Admin\ProduitController::class, 'delete'])->name('admin_produits_delete');
+
+
+    //----------------- Fournisseurs
+
+    Route::get('/fournisseurs/index', [App\Http\Controllers\Admin\FournisseurController::class, 'index'])->name('admin_fournisseurs_index');
+    Route::get('/fournisseurs/add', [App\Http\Controllers\Admin\FournisseurController::class, 'add'])->name('admin_fournisseurs_add');
+    Route::post('/fournisseurs/save', [App\Http\Controllers\Admin\FournisseurController::class, 'store'])->name('admin_fournisseurs_store');
+    Route::get('/fournisseurs/modifier/{id}', [App\Http\Controllers\Admin\FournisseurController::class, 'edit'])->name('admin_fournisseurs_edit');
+    Route::post('/fournisseurs/update/{id}', [App\Http\Controllers\Admin\FournisseurController::class, 'update'])->name('admin_fournisseurs_update');
+    Route::post('/fournisseurs/delete/{id}', [App\Http\Controllers\Admin\FournisseurController::class, 'delete'])->name('admin_fournisseurs_delete');
+
+
+    //----------------- Achats
+
+    Route::get('/achats/index', [App\Http\Controllers\Admin\AchatController::class, 'index'])->name('admin_achats_index');
+    Route::get('/achats/add', [App\Http\Controllers\Admin\AchatController::class, 'add'])->name('admin_achats_add');
+    Route::post('/achats/save', [App\Http\Controllers\Admin\AchatController::class, 'store'])->name('admin_achats_store');
+    Route::get('/achats/modifier/{id}', [App\Http\Controllers\Admin\AchatController::class, 'edit'])->name('admin_achats_edit');
+    Route::post('/achats/update/{id}', [App\Http\Controllers\Admin\AchatController::class, 'update'])->name('admin_achats_update');
+    Route::post('/achats/delete/{id}', [App\Http\Controllers\Admin\AchatController::class, 'delete'])->name('admin_achats_delete');
+
+
+    //----------------- Stocks
+
+    Route::get('/stocks/index', [App\Http\Controllers\Admin\StockController::class, 'index'])->name('admin_stock_index');
+    Route::get('/stocks/add', [App\Http\Controllers\Admin\StockController::class, 'add'])->name('admin_stok_add');
+    Route::post('/stocks/save', [App\Http\Controllers\Admin\StockController::class, 'store'])->name('admin_stock_store');
+    Route::get('/stocks/modifier/{id}', [App\Http\Controllers\Admin\StockController::class, 'edit'])->name('admin_stock_edit');
+    Route::post('/stocks/update/{id}', [App\Http\Controllers\Admin\StockController::class, 'update'])->name('admin_stock_update');
+    Route::post('/stocks/delete/{id}', [App\Http\Controllers\Admin\StockController::class, 'delete'])->name('admin_stock_delete');
 
 
 

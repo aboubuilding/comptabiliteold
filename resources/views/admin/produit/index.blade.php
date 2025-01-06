@@ -56,9 +56,9 @@
                                                     <input type="checkbox" class="form-check-input" id="checkAll" required="">
                                                 </th>
                                                 <th>Libelle</th>
-                                                <th>Prix unitaire </th>
-                                                <th>Unité achat </th>
-                                                <th>Unité stocks </th>
+                                                <th>Prix achat  </th>
+                                                <th>Unité  </th>
+                                              
                                                 <th>Type  </th>
 
 
@@ -90,9 +90,9 @@
                                                 </td>
 
 
-                                                <td><h6 class="mb-0">{{ $produit['prix_unitaire'] }} </h6></td>
+                                                <td><h6 class="mb-0">{{ $produit['prix_unitaire_achat'] }} </h6></td>
 
-                                                <td><h6 class="mb-0">{{ $produit['unite_achat'] }} </h6></td>
+                                                <td><h6 class="mb-0">{{ $produit['unite'] }} </h6></td>
 
                                                 <td><h6 class="mb-0">{{ $produit['unite_stock'] }} </h6></td>
                                                 <td>
@@ -206,8 +206,15 @@
                     let produit_modal = $('#addProduit');
 
                     $(produit_modal).find('form').find('input[name="libelle"]').val(data.produit.libelle);
-                    $(produit_modal).find('form').find('input[name="prix_unitaire"]').val(data.produit.prix_unitaire);
-                    $(produit_modal).find('form').find('input[name="unite_stock"]').val(data.produit.unite_stock);
+
+                    $(produit_modal).find('form').find('input[name="prix_unitaire_achat"]').val(data.produit.prix_unitaire_achat);
+
+                         $(produit_modal).find('form').find('input[name="prix_unitaire_vente"]').val(data.produit.prix_unitaire_vente);
+
+                                 $(produit_modal).find('form').find('input[name="prix_unitaire_vente"]').val(data.produit.prix_unitaire_vente);
+
+
+                    $(produit_modal).find('form').find('input[name="unite"]').val(data.produit.unite);
                     $(produit_modal).find('form').find('input[name="unite_achat"]').val(data.produit.unite_achat);
                     $(produit_modal).find('form').find('input[name="equivalence"]').val(data.produit.equivalence);
                     $(produit_modal).find('form').find('select[name="type_produit"]').val(data.produit.type_produit);
@@ -258,8 +265,11 @@
         function clearData() {
 
             $('#libelle').val('');
-            $('#prix_unitaire').val('');
-            $('#unite_stock').val('');
+            $('#prix_unitaire_achat').val('');
+            $('#prix_unitaire_vente').val('');
+            $('#prix_unitaire_stock').val('');
+            $('#photo').val('');
+            $('#unite').val('');
             $('#unite_achat').val('');
             $('#equivalence').val('');
             $('#type_produit').val('');
@@ -281,6 +291,7 @@
             let allValid = true;
             let prix_unitaire = parseInt($("#prix_unitaire").val(), 10);
             let type_produit = parseInt($("#type_produit").val(), 10);
+            let unite = $('#unite').val().trim();
             let unite_achat = $('#unite_achat').val().trim();
             let libelle = $('#libelle').val().trim();
 
@@ -311,6 +322,14 @@
                 allValid = false;
 
             }
+
+
+            if (unite === '') {
+                $('.unite_error').text("L '  unité     est obligatoire ");
+                allValid = false;
+
+            }
+
 
 
 
@@ -418,21 +437,22 @@
 
             let allValid = true;
 
-            let prix_unitaire = parseInt($("#prix_unitaire").val(), 10);
+             let prix_unitaire = parseInt($("#prix_unitaire").val(), 10);
             let type_produit = parseInt($("#type_produit").val(), 10);
+            let unite = $('#unite').val().trim();
             let unite_achat = $('#unite_achat').val().trim();
             let libelle = $('#libelle').val().trim();
 
 
             if (isNaN(prix_unitaire) || prix_unitaire === 0) {
-                $('.prix_error').text("Le prix unitaire     est obligatoire ");
+                $('.prix_unitaire_error').text("Le prix unitaire     est obligatoire ");
                 allValid = false;
 
             }
 
 
             if (isNaN(type_produit) || type_produit === 0) {
-                $('.prix_error').text("Le type de produit      est obligatoire ");
+                $('.type_produit_error').text("Le type de produit      est obligatoire ");
                 allValid = false;
 
             }
@@ -451,6 +471,12 @@
 
             }
 
+
+            if (unite === '') {
+                $('.unite_error').text("L '  unité     est obligatoire ");
+                allValid = false;
+
+            }
             let id = $('#idProduit').val();
 
 
