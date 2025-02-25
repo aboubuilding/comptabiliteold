@@ -17,13 +17,13 @@ return new class extends Migration
             $table->id();
 
 
-            $table->date('date_souscription')->nullable();
-            $table->float('montant_annuel_prevu')->nullable();
+            $table->string('libelle')->nullable();
+            $table->float('montant')->nullable();
 
-            $table->tinyInteger('type_offre')->nullable();
+          
 
             $table->bigInteger('annee_id')->nullable();
-            $table->bigInteger('inscription_id')->nullable();
+         
 
             $table->integer('etat')->default(1);
 

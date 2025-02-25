@@ -27,11 +27,13 @@ class Periode extends Model
     protected $fillable = [
 
 
-        'libelle',
-        'date_debut',
-        'date_fin',
+        'livre_id',
+        'inscription_id',
         'annee_id',
-
+        'date_Periode',
+        'date_retour_Periode',
+        'date_retour_reel',
+        'statut_Periode',
 
 
         'etat',
@@ -44,11 +46,13 @@ class Periode extends Model
      * Ajouter une Periode
      *
 
-     * @param  string $libelle
-     * @param  int $date_debut
-     * @param  int $date_fin
+     * @param  int $livre_id
+     * @param  int $inscription_id
      * @param  int $annee_id
-
+     * @param  date $date_Periode
+     * @param  date $date_retour_Periode
+     * @param  date $date_retour_reel
+     * @param  int $statut_Periode
 
 
 
@@ -56,29 +60,34 @@ class Periode extends Model
      */
 
     public static function addPeriode(
-        $libelle,
-        $date_debut,
-        $date_fin,
-        $annee_id
+        $livre_id,
+        $inscription_id,
+        $annee_id,
+        $date_Periode,
+        $date_retour_Periode,
+        $date_retour_reel,
+        $statut_Periode
 
 
     )
     {
-        $periode = new Periode();
+        $Periode = new Periode();
 
 
-        $periode->libelle = $libelle;
-        $periode->date_debut = $date_debut;
-        $periode->date_fin = $date_fin;
-        $periode->annee_id = $annee_id;
+        $Periode->livre_id = $livre_id;
+        $Periode->inscription_id = $inscription_id;
+        $Periode->annee_id = $annee_id;
+        $Periode->date_Periode = $date_Periode;
+        $Periode->date_retour_Periode = $date_retour_Periode;
+        $Periode->date_retour_reel = $date_retour_reel;
+        $Periode->statut_Periode = $statut_Periode;
 
 
+        $Periode->created_at = Carbon::now();
 
-        $periode->created_at = Carbon::now();
+        $Periode->save();
 
-        $periode->save();
-
-        return $periode;
+        return $Periode;
     }
 
     /**
@@ -90,17 +99,19 @@ class Periode extends Model
     public static function recherchePeriodeById($id)
     {
 
-        return   $periode = Periode::findOrFail($id);
+        return   $Periode = Periode::findOrFail($id);
     }
 
     /**
      * Update d'une Periode scolaire
 
-     * @param  string $libelle
-     * @param  int $date_debut
-     * @param  int $date_fin
+    * @param  int $livre_id
+     * @param  int $inscription_id
      * @param  int $annee_id
-
+     * @param  date $date_Periode
+     * @param  date $date_retour_Periode
+     * @param  date $date_retour_reel
+     * @param  int $statut_Periode
 
 
 
@@ -110,25 +121,29 @@ class Periode extends Model
      */
 
     public static function updatePeriode(
-        $libelle,
-        $date_debut,
-        $date_fin,
+        $livre_id,
+        $inscription_id,
         $annee_id,
-
+        $date_Periode,
+        $date_retour_Periode,
+        $date_retour_reel,
+        $statut_Periode,
 
         $id)
     {
 
 
-        return   $periode = Periode::findOrFail($id)->update([
+        return   $Periode = Periode::findOrFail($id)->update([
 
 
 
-            'libelle' => $libelle,
-            'date_debut' => $date_debut,
-            'date_fin' => $date_fin,
+            'livre_id' => $livre_id,
+            'inscription_id' => $inscription_id,
             'annee_id' => $annee_id,
-
+            'date_Periode' => $date_Periode,
+            'date_retour_Periode' => $date_retour_Periode,
+            'date_retour_reel' => $date_retour_reel,
+            'statut_Periode' => $statut_Periode,
 
             'id' => $id,
 
@@ -149,12 +164,12 @@ class Periode extends Model
     public static function deletePeriode($id)
     {
 
-        $periode = Periode::findOrFail($id)->update([
+        $Periode = Periode::findOrFail($id)->update([
             'etat' => TypeStatus::SUPPRIME
 
         ]);
 
-        if ($periode) {
+        if ($Periode) {
             return 1;
         }
         return 0;
@@ -164,6 +179,8 @@ class Periode extends Model
 
     /**
      * Retourne la liste des Periodes
+     * @param  int $livre_id
+     * @param  int $inscription_id
      * @param  int $annee_id
 
      *
@@ -172,9 +189,10 @@ class Periode extends Model
 
     public static function getListe(
 
+        $livre_id = null,
+
+        $inscription_id = null,
         $annee_id = null
-
-
 
     ) {
 
@@ -183,10 +201,22 @@ class Periode extends Model
         $query =  Periode::where('etat', '!=', TypeStatus::SUPPRIME)
         ;
 
+        if ($livre_id != null) {
+
+            $query->where('livre_id', '=', $livre_id);
+        }
+
+        if ($inscription_id != null) {
+
+            $query->where('inscription_id', '=', $inscription_id);
+        }
+
+
         if ($annee_id != null) {
 
             $query->where('annee_id', '=', $annee_id);
         }
+
 
 
 
@@ -199,16 +229,18 @@ class Periode extends Model
      * Retourne le nombre  des  activités
 
 
-    * @param  int $annee_id
-     * @param  int $niveau_id
-
+    * @param  int $livre_id
+     * @param  int $inscription_id
+     * @param  int $annee_id
 
      * @return  int $total
      */
 
     public static function getTotal(
-        $annee_id = null,
-        $date_debut = null
+        $livre_id = null,
+
+        $inscription_id = null,
+        $annee_id = null
 
 
 
@@ -221,14 +253,21 @@ class Periode extends Model
             ->where('Periodes.etat', '!=', TypeStatus::SUPPRIME);
 
 
+            if ($livre_id != null) {
+
+                $query->where('livre_id', '=', $livre_id);
+            }
+
+            if ($inscription_id != null) {
+
+                $query->where('inscription_id', '=', $inscription_id);
+            }
 
 
-        if ($annee_id != null) {
+            if ($annee_id != null) {
 
-            $query->where('Periodes.annee_id', '=', $annee_id);
-        }
-
-
+                $query->where('annee_id', '=', $annee_id);
+            }
 
 
         $total = $query->count();
@@ -255,6 +294,28 @@ class Periode extends Model
     }
 
 
-   
+    /**
+     * Obtenir une periode
+     *
+     */
+    public function inscription()
+    {
+
+
+        return $this->belongsTo(Inscription::class, 'inscription_id');
+    }
+
+
+      /**
+     * Obtenir un employe
+     *
+     */
+    public function livre()
+    {
+
+
+        return $this->belongsTo(Livre::class, 'livre_id');
+    }
+
 
 }

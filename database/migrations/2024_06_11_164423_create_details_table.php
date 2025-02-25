@@ -19,12 +19,12 @@ return new class extends Migration
             $table->float('montant')->nullable();
             $table->string('libelle')->nullable();
             $table->bigInteger('paiement_id')->nullable();
-            $table->tinyInteger('type_paiement')->nullable();
+            $table->bigInteger('type_paiement_id')->nullable();
             $table->bigInteger('inscription_id')->nullable();
             $table->bigInteger('frais_ecole_id')->nullable();
             $table->tinyInteger('statut_paiement')->nullable();
             $table->bigInteger('annee_id')->nullable();
-            $table->bigInteger('souscription_id')->nullable();
+         
             $table->bigInteger('caisse_id')->nullable();
             $table->bigInteger('comptable_id')->nullable();
             $table->bigInteger('caissier_id')->nullable();

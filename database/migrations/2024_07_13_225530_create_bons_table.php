@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('bons', function (Blueprint $table) {
             $table->id();
 
+            $table->string('reference')->nullable();
             $table->date('date_bon')->nullable();
             $table->tinyInteger('type')->nullable();
             $table->string('nom_responsable')->nullable();

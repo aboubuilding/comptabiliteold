@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('date_stock')->nullable();
             $table->bigInteger('produit_id')->nullable();
             $table->bigInteger('magasin_id')->nullable();
+            $table->bigInteger('boutique_id')->nullable();
             $table->bigInteger('bon_id')->nullable();
             $table->bigInteger('annee_id')->nullable();
             $table->float('quantite')->nullable();

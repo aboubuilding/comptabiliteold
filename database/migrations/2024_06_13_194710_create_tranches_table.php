@@ -18,8 +18,8 @@ return new class extends Migration
 
             $table->string('libelle')->nullable();
             $table->date('date_butoire')->nullable();
-            $table->integer('frais_ecole_id')->nullable();
-            $table->integer('type_frais')->nullable();
+            $table->integer('type_paiement_id')->nullable();
+          
             $table->integer('taux')->nullable();
 
             $table->integer('etat')->default(1);

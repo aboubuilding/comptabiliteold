@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Cantine;
 use App\Models\Detail;
+use App\Models\Souscription;
 use App\Types\TypePaiement;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -26,7 +27,7 @@ class CantineController extends Controller
         $session = session()->get('LoginUser');
         $annee_id = $session['annee_id'];
 
-        $cantines = Cantine::getListe($annee_id);
+        $cantines = Souscription::getListe(null, $annee_id, null, null, TypePaiement::CANTINE );
 
         foreach($cantines as $cantine ){
             $data []  = array(
@@ -34,14 +35,17 @@ class CantineController extends Controller
 
                 "inscription_id"=>$cantine->inscription_id == null ? ' ' :$cantine->inscription_id,
                 "date_souscription"=>$cantine->date_souscription == null ? ' ' :$cantine->date_souscription,
-                "montant_annuel_prevu"=>$cantine->montant_annuel_prevu == null ? ' ' :$cantine->montant_annuel_prevu,
-                "nom_prenom"=>$cantine->nom_eleve == null ? ' ' :$cantine->nom_eleve.''.$cantine->prenom_eleve,
+                "montant_prevu"=>$cantine->montant_prevu == null ? ' ' :$cantine->montant_prevu,
 
-                "type_offre"=>$cantine->type_offre == null ? ' ' : $cantine->type_offre,
-                "niveau_libelle"=>$cantine->niveau_libelle == null ? ' ' : $cantine->niveau_libelle,
-                "libelle_cycle"=>$cantine->libelle_cycle == null ? ' ' : $cantine->libelle_cycle,
-                "total_paye"=> Detail::getMontantTotal($annee_id, null, TypePaiement::CANTINE ,$cantine->inscription_id ),
+                "montant_total"=>$cantine->montant_total == null ? ' ' :$cantine->montant_total,
+                "nom_prenom"=>$cantine->inscription_id == null ? ' ' :$cantine->inscription->eleve->nom.''.$cantine->inscription->eleve->prenom,
 
+                "type_offre"=>$cantine->frais_ecole_id == null ? ' ' : $cantine->fraisecole->libelle,
+                "niveau_libelle"=>$cantine->niveau_id == null ? ' ' : $cantine->niveau->libelle,
+                "periode"=>$cantine->periode_id == null ? ' ' : $cantine->periode->libelle,
+                 "statut"=>$cantine->statut == null ? ' ' : $cantine->statut,
+
+               
 
             );
         }
@@ -69,8 +73,8 @@ class CantineController extends Controller
 
         $validator = \Validator::make($request->all(),[
             'inscription_id'=>'required',
-            'type_offre'=>'required',
-            'montant_annuel_prevu'=>'required',
+            'periode_id'=>'required',
+            'frais_ecole_id'=>'required',
 
 
 
@@ -78,8 +82,8 @@ class CantineController extends Controller
         ],[
             'inscription_id.required'=>'Le choix de l eleve   est obligatoire ',
 
-            'type_offre.required'=>'Le type d offre    est obligatoire  ',
-            'montant_annuel_prevu.required'=>'Le montant annel     est obligatoire  ',
+            'periode_id.required'=>'La periode    est obligatoire  ',
+            'frais_ecole_id.required'=>'Le type de frais    est obligatoire  ',
 
 
 
@@ -91,20 +95,27 @@ class CantineController extends Controller
         }else{
 
 
-                 Cantine::addCantine(
+                 Souscription::addSouscription(
 
                    Carbon::today(),
-                    $request->montant_annuel_prevu,
-                    $request->type_offre,
+                    $request->montant_prevu,
+                    $request->montant_total,
+                    $request->type_paiement,
+                    $request->montant_total,
+                    $request->frais_ecole_id,
+                    $request->niveau_id,
                      $annee_id,
                     $request->inscription_id,
+                    $request->periode_id,
+                   
+                    $request->statut,
 
 
                 );
 
 
 
-                return response()->json(['code'=>1,'msg'=>'Cantine  ajouté avec succès ']);
+                return response()->json(['code'=>1,'msg'=>'Souscription   ajoutée avec succès ']);
             }
         }
 
@@ -117,14 +128,14 @@ class CantineController extends Controller
         $validator = \Validator::make($request->all(),[
 
             'inscription_id'=>'required',
-            'type_offre'=>'required',
-            'montant_annuel_prevu'=>'required',
+            'periode_id'=>'required',
+            'frais_ecole_id'=>'required',
 
         ],[
             'inscription_id.required'=>'Le choix de l eleve   est obligatoire ',
 
-            'type_offre.required'=>'Le type d offre    est obligatoire  ',
-            'montant_annuel_prevu.required'=>'Le montant annel     est obligatoire  ',
+            'periode_id.required'=>'La periode    est obligatoire  ',
+            'frais_ecole_id.required'=>'Le type de frais    est obligatoire  ',
 
 
         ]);
@@ -133,17 +144,22 @@ class CantineController extends Controller
             return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
         }else{
 
-            $cantine = Cantine::rechercheCantineById($id);
+            $cantine = Souscription::rechercheSouscriptionById($id);
 
-            Cantine::updateCantine(
+            Souscription::updateSouscription(
 
-                    $cantine->date_souscription,
-                    $request->montant_annuel_prevu,
-                    $request->type_offre,
-
+                    Carbon::today(),
+                    $request->montant_prevu,
+                    $request->montant_total,
+                    $request->type_paiement,
+                    $request->montant_total,
+                    $request->frais_ecole_id,
+                    $request->niveau_id,
                      $annee_id,
-
                     $request->inscription_id,
+                    $request->periode_id,
+                   
+                    $request->statut,
 
 
                     $id
@@ -203,10 +219,10 @@ class CantineController extends Controller
         // check data deleted or not
         if ($delete) {
             $success = true;
-            $message = "Cantine  supprimée ";
+            $message = "Souscription  supprimée ";
         } else {
             $success = true;
-            $message = "Cantine  non trouvée   ";
+            $message = "Souscription  non trouvée   ";
         }
 
 
@@ -216,10 +232,6 @@ class CantineController extends Controller
             'message' => $message,
         ]);
     }
-
-
-
-
 
 
 

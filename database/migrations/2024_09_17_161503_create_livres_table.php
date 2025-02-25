@@ -19,7 +19,7 @@ return new class extends Migration
 
             $table->bigInteger('auteur_id')->nullable();
             $table->bigInteger('maison_edition_id')->nullable();
-            $table->bigInteger('annee_id')->nullable();
+           
             $table->bigInteger('categorie_livre_id')->nullable();
             $table->bigInteger('annee_edition_id')->nullable();
             $table->string('titre')->nullable();

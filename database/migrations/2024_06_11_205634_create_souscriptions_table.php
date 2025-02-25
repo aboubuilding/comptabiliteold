@@ -17,20 +17,20 @@ return new class extends Migration
             $table->id();
 
             $table->date('date_souscription')->nullable();
-            $table->float('montant_annuel_prevu')->nullable();
-            $table->float('taux_remise')->nullable();
+            $table->float('montant_prevu')->nullable();
+         
             $table->tinyInteger('type_paiement')->nullable();
-            $table->bigInteger('frais_ecole_id')->nullable();
-            $table->bigInteger('niveau_id')->nullable();
+            $table->bigInteger('cantine_id')->nullable();
+            $table->bigInteger('ligne_id')->nullable();
+            $table->bigInteger('livre_location_id')->nullable();
+            $table->bigInteger('activite_id')->nullable();
+           
             $table->bigInteger('annee_id')->nullable();
             $table->bigInteger('inscription_id')->nullable();
-
-
-            $table->bigInteger('utilisateur_id')->nullable();
-
-            $table->bigInteger('ligne_id')->nullable();
-            $table->bigInteger('zone_id')->nullable();
-
+           
+            $table->bigInteger('periode_id')->nullable();
+            
+            $table->integer('statut')->default(1);
             $table->integer('etat')->default(1);
             $table->timestamps();
         });

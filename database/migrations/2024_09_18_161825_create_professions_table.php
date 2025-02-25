@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('libelle')->nullable();
             $table->string('salaire_base')->nullable();
            
-            $table->bigInteger('annee_id')->nullable();
+           
             $table->integer('etat')->default(1);
             $table->timestamps();
         });

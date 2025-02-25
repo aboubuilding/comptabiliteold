@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('libelle')->nullable();
             $table->text('description')->nullable();
             $table->float('montant')->nullable();
+            $table->tinyInteger('type')->nullable();
             $table->bigInteger('annee_id')->nullable();
             $table->bigInteger('niveau_id')->nullable();
 

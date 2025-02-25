@@ -30,7 +30,7 @@ class FraisEcole extends Model
         'libelle',
         'montant',
         'type_paiement',
-        'type_forfait',
+        'periode_id',
         'niveau_id',
 
         'annee_id',
@@ -50,7 +50,7 @@ class FraisEcole extends Model
 
      * @param  int $montant
      * @param  int $type_paiement
-     * @param  int $type_forfait
+     * @param  int $periode_id
      * @param  int $niveau_id
      * @param  int $annee_id
 
@@ -65,7 +65,7 @@ class FraisEcole extends Model
 
         $montant,
         $type_paiement,
-        $type_forfait,
+        $periode_id,
         $niveau_id,
         $annee_id
 
@@ -79,7 +79,7 @@ class FraisEcole extends Model
 
         $fraisecole->montant = $montant;
         $fraisecole->type_paiement = $type_paiement;
-        $fraisecole->type_forfait = $type_forfait;
+        $fraisecole->periode_id = $periode_id;
         $fraisecole->niveau_id = $niveau_id;
         $fraisecole->annee_id = $annee_id;
 
@@ -111,7 +111,7 @@ class FraisEcole extends Model
      *
      * * @param int $montant
      * * @param int $type_paiement
-     * * @param int $type_forfait
+     * * @param int $periode_id
      * * @param int $niveau_id
      * * @param int $annee_id
  * @param int $id
@@ -123,7 +123,7 @@ class FraisEcole extends Model
 
         $montant,
         $type_paiement,
-        $type_forfait,
+        $periode_id,
         $niveau_id,
         $annee_id,
 
@@ -140,7 +140,7 @@ class FraisEcole extends Model
 
             'montant' => $montant,
             'type_paiement' => $type_paiement,
-            'type_forfait' => $type_forfait,
+            'periode_id' => $periode_id,
             'niveau_id' => $niveau_id,
             'annee_id' => $annee_id,
 
@@ -182,7 +182,7 @@ class FraisEcole extends Model
 
 
      * @param  int $type_paiement
-     * @param  int $type_forfait
+     * @param  int $periode_id
      * @param  int $niveau_id
      * @param  int $annee_id
 
@@ -195,7 +195,7 @@ class FraisEcole extends Model
 
 
         $type_paiement = null,
-        $type_forfait = null,
+        $periode_id = null,
         $niveau_id = null,
         $annee_id = null
 
@@ -217,9 +217,9 @@ class FraisEcole extends Model
             $query->where('type_paiement', '=', $type_paiement);
         }
 
-         if ($type_forfait != null) {
+         if ($periode_id != null) {
 
-            $query->where('type_forfait', '=', $type_forfait);
+            $query->where('periode_id', '=', $periode_id);
         }
 
          if ($niveau_id != null) {
@@ -248,7 +248,7 @@ class FraisEcole extends Model
 
 
     * @param  int $type_paiement
-     * @param  int $type_forfait
+     * @param  int $periode_id
      * @param  int $niveau_id
      * @param  int $annee_id
 
@@ -259,7 +259,7 @@ class FraisEcole extends Model
     public static function getTotal(
 
   		$type_paiement = null,
-        $type_forfait = null,
+        $periode_id = null,
         $niveau_id = null,
         $annee_id = null
 
@@ -281,9 +281,9 @@ class FraisEcole extends Model
             $query->where('type_paiement', '=', $type_paiement);
         }
 
-         if ($type_forfait != null) {
+         if ($periode_id != null) {
 
-            $query->where('type_forfait', '=', $type_forfait);
+            $query->where('periode_id', '=', $periode_id);
         }
 
          if ($niveau_id != null) {
@@ -338,7 +338,7 @@ class FraisEcole extends Model
     public static function getPrix(
 
         $type_paiement = null,
-        $type_forfait = null,
+        $periode_id = null,
         $niveau_id = null,
         $annee_id = null
 
@@ -357,9 +357,9 @@ class FraisEcole extends Model
             $query->where('type_paiement', '=', $type_paiement);
         }
 
-        if ($type_forfait != null) {
+        if ($periode_id != null) {
 
-            $query->where('type_forfait', '=', $type_forfait);
+            $query->where('periode_id', '=', $periode_id);
         }
 
         if ($niveau_id != null) {

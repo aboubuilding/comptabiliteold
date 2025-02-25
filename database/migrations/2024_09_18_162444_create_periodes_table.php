@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('date_fin')->nullable();
 
             $table->bigInteger('annee_id')->nullable();
+             $table->integer('statut')->default(1);
             $table->integer('etat')->default(1);
 
             $table->timestamps();

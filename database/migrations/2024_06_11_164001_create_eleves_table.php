@@ -36,11 +36,7 @@ return new class extends Migration
             //infos de santé
             $table->tinyInteger('groupe_id')->nullable();
             $table->string('certificat_medical')->nullable();
-            $table->string('vaccin_1')->nullable();
-            $table->string('vaccin_2')->nullable();
-            $table->string('vaccin_3')->nullable();
-            $table->string('vaccin_4')->nullable();
-            $table->string('vaccin_5')->nullable();
+           
 
             $table->string('numero_medecin')->nullable();
             $table->string('numero_personne_prevenir')->nullable();

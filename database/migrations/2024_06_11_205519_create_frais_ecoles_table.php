@@ -19,9 +19,10 @@ return new class extends Migration
             $table->string('libelle')->nullable();
             $table->float('montant')->nullable();
             $table->tinyInteger('type_paiement')->nullable();
-            $table->tinyInteger('type_forfait')->nullable();
+                
             $table->bigInteger('niveau_id')->nullable();
             $table->bigInteger('annee_id')->nullable();
+            $table->bigInteger('periode_id')->nullable();
             $table->integer('etat')->default(1);
 
             $table->timestamps();

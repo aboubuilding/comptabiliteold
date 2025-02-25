@@ -17,10 +17,11 @@ return new class extends Migration
             $table->id();
 
        
+            $table->date('date_acquisition')->nullable();
             $table->string('marque')->nullable();
             $table->string('plaque')->nullable();
             $table->tinyInteger('nombre_place')->nullable();
-            $table->bigInteger('annee_id')->nullable();
+         
 
 
             $table->integer('etat')->default(1);

@@ -28,15 +28,16 @@ class Souscription extends Model
 
 
         'date_souscription',
-        'montant_annuel_prevu',
-        'taux_remise',
+        'montant_prevu',
+        'montant_total',
         'type_paiement',
         'frais_ecole_id',
         'niveau_id',
         'annee_id',
         'inscription_id',
         'utilisateur_id',
-        'ligne_id',
+        'periode_id',
+        'statut',
 
 
 
@@ -51,15 +52,16 @@ class Souscription extends Model
      *
 
      * @param  date $date_souscription
-     * @param  float $montant_annuel_prevu
-     * @param  int $taux_remise
+     * @param  float $montant_prevu
+     * @param  int $montant_total
      * @param  int $type_paiement
      * @param  int $frais_ecole_id
      * @param  int $niveau_id
      * @param  int $annee_id
      * @param  int $inscription_id
-     * @param  int $utilisateur_id
-     * @param  int $ligne_id
+   
+     * @param  int $periode_id
+     * @param  int $statut
 
 
 
@@ -71,15 +73,15 @@ class Souscription extends Model
     public static function addSouscription (
 
         $date_souscription,
-        $montant_annuel_prevu,
-        $taux_remise,
+        $montant_prevu,
+        $montant_total,
         $type_paiement,
         $frais_ecole_id,
         $niveau_id,
         $annee_id,
         $inscription_id,
-        $utilisateur_id,
-        $ligne_id
+        $periode_id,
+        $statut
 
 
 
@@ -89,15 +91,15 @@ class Souscription extends Model
 
 
         $souscription->date_souscription = $date_souscription;
-        $souscription->montant_annuel_prevu = $montant_annuel_prevu;
-        $souscription->taux_remise = $taux_remise;
+        $souscription->montant_prevu = $montant_prevu;
+        $souscription->montant_total = $montant_total;
         $souscription->type_paiement = $type_paiement;
         $souscription->frais_ecole_id = $frais_ecole_id;
         $souscription->niveau_id = $niveau_id;
         $souscription->annee_id = $annee_id;
         $souscription->inscription_id = $inscription_id;
-        $souscription->utilisateur_id = $utilisateur_id;
-        $souscription->ligne_id = $ligne_id;
+        $souscription->periode_id = $periode_id;
+        $souscription->statut = $statut;
 
 
         $souscription->created_at = Carbon::now();
@@ -122,16 +124,17 @@ class Souscription extends Model
     /**
      * Update d'une Souscription scolaire
 
- ** @param date $date_souscription
-     * * @param float $montant_annuel_prevu
-     * * @param int $taux_remise
-     * * @param int $type_paiement
-     * * @param int $frais_ecole_id
-     * * @param int $niveau_id
-     * * @param int $annee_id
-     * * @param int $inscription_id
-    * @param  int $utilisateur_id
-     * @param  int $ligne_id
+ * @param  date $date_souscription
+     * @param  float $montant_prevu
+     * @param  int $montant_total
+     * @param  int $type_paiement
+     * @param  int $frais_ecole_id
+     * @param  int $niveau_id
+     * @param  int $annee_id
+     * @param  int $inscription_id
+   
+     * @param  int $periode_id
+     * @param  int $statut
 
      *
      *
@@ -141,15 +144,15 @@ class Souscription extends Model
 
     public static function updateSouscription(
         $date_souscription,
-        $montant_annuel_prevu,
-        $taux_remise,
+        $montant_prevu,
+        $montant_total,
         $type_paiement,
         $frais_ecole_id,
         $niveau_id,
         $annee_id,
         $inscription_id,
-        $utilisateur_id,
-        $ligne_id,
+        $periode_id,
+        $statut,
 
 
         $id)
@@ -161,15 +164,15 @@ class Souscription extends Model
 
 
             'date_souscription' => $date_souscription,
-            'montant_annuel_prevu' => $montant_annuel_prevu,
-            'taux_remise' => $taux_remise,
+            'montant_prevu' => $montant_prevu,
+            'montant_total' => $montant_total,
             'type_paiement' => $type_paiement,
             'frais_ecole_id' => $frais_ecole_id,
             'niveau_id' => $niveau_id,
             'annee_id' => $annee_id,
             'inscription_id' => $inscription_id,
-            'utilisateur_id' => $utilisateur_id,
-            'ligne_id' => $ligne_id,
+            'periode_id' => $periode_id,
+            'statut' => $statut,
 
 
             'id' => $id,
@@ -212,8 +215,8 @@ class Souscription extends Model
      * @param  int $inscription_id
      * @param  int $frais_ecole_id
      * @param  int $type_paiement
-     * @param  int $utilisateur_id
-     * @param  int $ligne_id
+     * @param  int $periode_id
+     * @param  int $statut
 
 
 
@@ -228,8 +231,8 @@ class Souscription extends Model
         $inscription_id = null,
         $frais_ecole_id = null,
         $type_paiement = null,
-        $utilisateur_id = null,
-        $ligne_id = null,
+        $periode_id = null,
+        $statut = null,
 
 
 
@@ -268,15 +271,15 @@ class Souscription extends Model
         }
 
 
-          if ($utilisateur_id != null) {
+          if ($periode_id != null) {
 
-            $query->where('utilisateur_id', '=', $utilisateur_id);
+            $query->where('periode_id', '=', $periode_id);
         }
 
 
-         if ($ligne_id != null) {
+         if ($statut != null) {
 
-            $query->where('ligne_id', '=', $ligne_id);
+            $query->where('statut', '=', $statut);
         }
 
 
@@ -291,14 +294,13 @@ class Souscription extends Model
 
      *
      *
- * @param int $niveau_id
-     * * @param int $annee_id
-     * * @param int $inscription_id
-     * * @param int $frais_ecole_id
-     * * @param int $type_paiement
-
-       * @param  int $utilisateur_id
-     * @param  int $ligne_id
+ * @param  int $niveau_id
+     * @param  int $annee_id
+     * @param  int $inscription_id
+     * @param  int $frais_ecole_id
+     * @param  int $type_paiement
+     * @param  int $periode_id
+     * @param  int $statut
 
      *
      *
@@ -311,9 +313,8 @@ class Souscription extends Model
         $inscription_id = null,
         $frais_ecole_id = null,
         $type_paiement = null,
-        $utilisateur_id = null,
-        $ligne_id = null,
-
+        $periode_id = null,
+        $statut = null,
 
 
     ) {
@@ -345,23 +346,23 @@ class Souscription extends Model
             $query->where('frais_ecole_id', '=', $frais_ecole_id);
         }
 
-        if ($type_paiement != null) {
+         if ($type_paiement != null) {
 
             $query->where('type_paiement', '=', $type_paiement);
         }
 
 
-         if ($utilisateur_id != null) {
+          if ($periode_id != null) {
 
-            $query->where('utilisateur_id', '=', $utilisateur_id);
+            $query->where('periode_id', '=', $periode_id);
         }
 
 
+         if ($statut != null) {
 
-          if ($ligne_id != null) {
-
-            $query->where('ligne_id', '=', $ligne_id);
+            $query->where('statut', '=', $statut);
         }
+
 
 
 
@@ -421,19 +422,6 @@ class Souscription extends Model
 
 
 
-     /**
-     * Obtenir une ligne 
-     *
-     */
-    public function ligne()
-    {
-
-
-        return $this->belongsTo(Ligne::class, 'ligne_id');
-    }
-
-
-
 
 
      /**
@@ -459,6 +447,21 @@ class Souscription extends Model
 
         return $this->belongsTo(FraisEcole::class, 'frais_ecole_id');
     }
+
+
+
+    /**
+     * Obtenir une periode 
+     *
+     */
+    public function periode()
+    {
+
+
+        return $this->belongsTo(Periode::class, 'periode_id');
+    }
+
+
 
 
     /**

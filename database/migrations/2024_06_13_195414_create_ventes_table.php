@@ -16,14 +16,17 @@ return new class extends Migration
         Schema::create('ventes', function (Blueprint $table) {
             $table->id();
 
+            $table->string('libelle')->nullable();
             $table->date('date_vente')->nullable();
             $table->float('quantite')->nullable();
             $table->bigInteger('annee_id')->nullable();
-            $table->bigInteger('inscription_id')->nullable();
-            $table->bigInteger('paiement_id')->nullable();
+            $table->float('montant')->nullable();
+         
             $table->bigInteger('produit_id')->nullable();
-            $table->bigInteger('detail_id')->nullable();
-            $table->bigInteger('utilisateur_id')->nullable();
+            $table->bigInteger('personnel_id')->nullable();
+            $table->bigInteger('boutique_id')->nullable();
+          
+           
 
             $table->integer('etat')->default(1);
             $table->timestamps();

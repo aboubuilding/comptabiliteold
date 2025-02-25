@@ -20,6 +20,7 @@ return new class extends Migration
             $table->float('prix_minimal')->nullable();
             $table->float('prix_plafond')->nullable();
           
+            $table->bigInteger('quartier_id')->nullable();
             $table->bigInteger('annee_id')->nullable();
             $table->integer('etat')->default(1);
 

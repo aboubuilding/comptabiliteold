@@ -19,11 +19,12 @@ return new class extends Migration
              $table->string('libelle');
             $table->float('solde_initial')->nullable();
             $table->float('solde_final')->nullable();
+          
             $table->datetime('date_ouverture')->nullable();
             $table->datetime('date_cloture')->nullable();
             $table->tinyInteger('statut')->nullable();
             $table->bigInteger('utilisateur_id')->nullable();
-            $table->bigInteger('responsable_id')->nullable();
+        
             $table->bigInteger('annee_id')->nullable();
             
             $table->integer('etat')->default(1);

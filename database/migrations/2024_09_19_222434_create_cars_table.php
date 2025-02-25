@@ -17,12 +17,12 @@ return new class extends Migration
             $table->id();
 
             $table->date('date_souscription')->nullable();
-            $table->float('montant_annuel_prevu')->nullable();
-            $table->string('destination')->nullable();
+            
             $table->text('adresse_map')->nullable();
 
             $table->bigInteger('annee_id')->nullable();
-            $table->bigInteger('inscription_id')->nullable();
+          
+            $table->bigInteger('souscription_id')->nullable();
 
             $table->bigInteger('ligne_id')->nullable();
             $table->bigInteger('zone_id')->nullable();

@@ -27,7 +27,7 @@ return new class extends Migration
             $table->integer('nationalite_id')->nullable();
             $table->string('whatsapp')->nullable();
 
-            $table->string('quartier')->nullable();
+            $table->bigInteger('quartier_id')->nullable();
             $table->text('adresse')->nullable();
             $table->string('email')->nullable();
 

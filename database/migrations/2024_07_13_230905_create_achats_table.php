@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
 
             $table->date('date_achat')->nullable();
+            $table->date('date_livraison')->nullable();
             $table->string('nom_acheteur')->nullable();
             $table->string('reference')->nullable();
             $table->string('bon_commande')->nullable();
