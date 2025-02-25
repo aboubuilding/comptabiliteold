@@ -30,6 +30,7 @@ class Activite extends Model
         'libelle',
         'description',
         'montant',
+        'type',
         'annee_id',
         'niveau_id',
 
@@ -47,6 +48,7 @@ class Activite extends Model
      * @param  string $libelle
      * @param  int $description
      * @param  int $montant
+     * @param  int $type
      * @param  int $annee_id
      * @param  int $niveau_id
 
@@ -59,6 +61,7 @@ class Activite extends Model
         $libelle,
         $description,
         $montant,
+        $type,
         $annee_id,
         $niveau_id
 
@@ -70,6 +73,7 @@ class Activite extends Model
         $activite->libelle = $libelle;
         $activite->description = $description;
         $activite->montant = $montant;
+        $activite->type = $type;
         $activite->annee_id = $annee_id;
         $activite->niveau_id = $niveau_id;
 
@@ -99,6 +103,7 @@ class Activite extends Model
      * @param  string $libelle
      * @param  int $description
      * @param  int $montant
+     * @param  int $type
      * @param  int $annee_id
      * @param  int $niveau_id
 
@@ -113,6 +118,7 @@ class Activite extends Model
         $libelle,
         $description,
         $montant,
+        $type,
         $annee_id,
         $niveau_id,
 
@@ -127,6 +133,7 @@ class Activite extends Model
             'libelle' => $libelle,
             'description' => $description,
             'montant' => $montant,
+            'type' => $type,
             'annee_id' => $annee_id,
             'niveau_id' => $niveau_id,
 

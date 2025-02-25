@@ -28,6 +28,7 @@ class Achat extends Model
 
 
         'date_achat',
+        'date_livraison',
         'nom_acheteur',
         'reference',
         'bon_commande',
@@ -50,6 +51,8 @@ class Achat extends Model
      *
 
      * @param  date $date_achat
+     * @param  date $date_livraison
+
      * @param  string $nom_acheteur
      * @param  string $reference
      * @param  int $bon_commande
@@ -66,6 +69,7 @@ class Achat extends Model
 
     public static function addAchat(
         $date_achat,
+        $date_livraison,
         $nom_acheteur,
         $reference,
         $bon_commande,
@@ -81,6 +85,7 @@ class Achat extends Model
 
 
         $achat->date_achat = $date_achat;
+        $achat->date_livraison = $date_livraison;
         $achat->nom_acheteur = $nom_acheteur;
         $achat->reference = $reference;
         $achat->bon_commande = $bon_commande;
@@ -111,9 +116,10 @@ class Achat extends Model
     }
 
     /**
-     * Update d'une Achat scolaire
+     * Update d'un achat 
 
     * @param  date $date_achat
+    * @param  date $date_livraison
      * @param  string $nom_acheteur
      * @param  string $reference
      * @param  int $bon_commande
@@ -132,6 +138,7 @@ class Achat extends Model
 
     public static function updateAchat(
         $date_achat,
+        $date_livraison,
         $nom_acheteur,
         $reference,
         $bon_commande,
@@ -150,6 +157,7 @@ class Achat extends Model
 
 
             'date_achat' => $date_achat,
+            'date_livraison' => $date_livraison,
             'nom_acheteur' => $nom_acheteur,
             'reference' => $reference,
             'bon_commande' => $bon_commande,
