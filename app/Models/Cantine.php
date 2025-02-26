@@ -188,13 +188,11 @@ class Cantine extends Model
 
 
 
-        
-
-
-        ->where('cantines.etat', '!=', TypeStatus::SUPPRIME)
-
-
+        $query =  Cantine::where('etat', '!=', TypeStatus::SUPPRIME)
         ;
+
+
+
 
         if ($annee_id != null) {
 
@@ -252,6 +250,7 @@ class Cantine extends Model
 
         
 
+        $query =   DB::table('cantines')
 
 
         ->where('cantines.etat', '!=', TypeStatus::SUPPRIME);
