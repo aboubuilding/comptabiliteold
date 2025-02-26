@@ -13,8 +13,12 @@ class Souscription extends Model
 {
     use HasFactory;
 
-   class Souscription extends Model
-{
+    public function __construct(array $attributes=[])
+    {
+        parent::__construct($attributes);
+        $this->etat=TypeStatus::ACTIF;
+    }
+
     protected $table = 'souscriptions';
 
     protected $fillable = [
@@ -32,8 +36,8 @@ class Souscription extends Model
         'etat',
     ];
 
-   
-}
+
+
 
 
    /**
@@ -132,7 +136,7 @@ public static function updateSouscription(
     $id
 ) {
     $souscription = Souscription::findOrFail($id);
-    
+
     $souscription->update([
         'date_souscription' => $date_souscription,
         'montant_prevu' => $montant_prevu,
@@ -384,12 +388,12 @@ public static function getTotal(
 
 
 
-   
-  
+
+
 
 
     /**
-     * Obtenir une periode 
+     * Obtenir une periode
      *
      */
     public function periode()
@@ -455,3 +459,6 @@ public static function getPrix(
 
     return $query->first();
 }
+
+}
+

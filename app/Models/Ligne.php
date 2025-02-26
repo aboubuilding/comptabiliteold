@@ -128,7 +128,7 @@ class Ligne extends Model
             'libelle' => $libelle,
             'prix_minimal' => $prix_minimal,
             'prix_plafond' => $prix_plafond,
-            'quartier_id' => $quartier_id
+            'quartier_id' => $quartier_id,
             'annee_id' => $annee_id,
 
 

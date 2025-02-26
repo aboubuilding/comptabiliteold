@@ -74,7 +74,7 @@ class Car extends Model
 
 
         $car->date_souscription = $date_souscription;
-      
+
         $car->adresse_map = $adresse_map;
 
 
@@ -105,8 +105,8 @@ class Car extends Model
     /**
      * Update d'une Car scolaire
 
-     
-     
+
+
      *
 
      * @param  date $date_souscription
@@ -188,8 +188,8 @@ class Car extends Model
      * @param  int $annee_id
 
      * @param  int $souscription_id
-    
-     
+
+
      * @param  int $zone_id
      * @param  int $ligne_id
 
@@ -201,7 +201,7 @@ class Car extends Model
 
         $annee_id = null,
         $souscription_id = null,
-        
+
         $ligne_id = null,
         $zone_id = null,
 
@@ -235,7 +235,7 @@ class Car extends Model
 
 
 
-        
+
 
             if ($ligne_id != null) {
 
@@ -263,7 +263,7 @@ class Car extends Model
   * @param  int $annee_id
 
      * @param  int $souscription_id
-   
+
      * @param  int $zone_id
      * @param  int $ligne_id
 
@@ -274,7 +274,7 @@ class Car extends Model
  public static function getTotal(
            $annee_id = null,
         $souscription_id = null,
-       
+
         $ligne_id = null,
         $zone_id = null,
 
@@ -310,19 +310,19 @@ class Car extends Model
         }
 
 
-            if ($ souscription_id!= null) {
+            if ($souscription_id != null) {
 
             $query->where('souscription_id', '=', $souscription_id);
         }
 
 
-  if ($ ligne_id!= null) {
+  if ($ligne_id!= null) {
 
             $query->where('ligne_id', '=', $ligne_id);
         }
 
 
-  if ($ zone_id!= null) {
+  if ($zone_id!= null) {
 
             $query->where('zone_id', '=', $zone_id);
         }
@@ -343,7 +343,7 @@ class Car extends Model
     }
 
 
-    
+
 
 
     /**
@@ -371,7 +371,7 @@ class Car extends Model
 
 
 
-  
+
 
      /**
      * Obtenir un fournisseur

@@ -13,8 +13,16 @@ class Periode extends Model
 {
     use HasFactory;
 
-class Periode extends Model
-{
+
+
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->etat = TypeStatus::ACTIF;
+    
+    }
+
     protected $table = 'periodes';
 
     protected $fillable = [
@@ -26,12 +34,6 @@ class Periode extends Model
         'etat',
     ];
 
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-        $this->etat = 1; 
-    }
-}
 
 
 
