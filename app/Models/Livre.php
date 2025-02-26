@@ -29,7 +29,7 @@ class Livre extends Model
 
         'auteur_id',
         'maison_edition_id',
-        'annee_id',
+       
         'categorie_livre_id',
         'annee_edition_id',
         'titre',
@@ -49,7 +49,7 @@ class Livre extends Model
 
      * @param  int $auteur_id
      * @param  int $maison_edition_id
-     * @param  int $annee_id
+    
      * @param  int $categorie_livre_id
      * @param  int $annee_edition_id
      * @param  string $titre
@@ -67,7 +67,7 @@ class Livre extends Model
     public static function addLivre(
         $auteur_id,
         $maison_edition_id,
-        $annee_id,
+      
         $categorie_livre_id,
         $annee_edition_id,
         $titre,
@@ -82,7 +82,7 @@ class Livre extends Model
 
         $livre->auteur_id = $auteur_id;
         $livre->maison_edition_id = $maison_edition_id;
-        $livre->annee_id = $annee_id;
+        
         $livre->categorie_livre_id = $categorie_livre_id;
         $livre->annee_edition_id = $annee_edition_id;
         $livre->titre = $titre;
@@ -113,7 +113,7 @@ class Livre extends Model
 
     * @param  int $auteur_id
      * @param  int $maison_edition_id
-     * @param  int $annee_id
+    
      * @param  int $categorie_livre_id
      * @param  int $annee_edition_id
      * @param  string $titre
@@ -128,7 +128,7 @@ class Livre extends Model
     public static function updateLivre(
         $auteur_id,
         $maison_edition_id,
-        $annee_id,
+       
         $categorie_livre_id,
         $annee_edition_id,
         $titre,
@@ -146,7 +146,7 @@ class Livre extends Model
 
             'auteur_id' => $auteur_id,
             'maison_edition_id' => $maison_edition_id,
-            'annee_id' => $annee_id,
+          
             'categorie_livre_id' => $categorie_livre_id,
             'annee_edition_id' => $annee_edition_id,
             'titre' => $titre,
@@ -193,7 +193,7 @@ class Livre extends Model
 
      * @param  int $auteur_id
      * @param  int $maison_edition_id
-     * @param  int $annee_id
+   
      * @param  int $categorie_livre_id
      * @param  int $annee_edition_id
 
@@ -207,7 +207,7 @@ class Livre extends Model
 
         $auteur_id = null,
         $maison_edition_id = null,
-        $annee_id = null,
+        
         $categorie_livre_id = null,
         $annee_edition_id = null
 
@@ -233,10 +233,7 @@ class Livre extends Model
         }
 
 
-        if ($annee_id != null) {
-
-            $query->where('annee_id', '=', $annee_id);
-        }
+        
 
 
 
@@ -269,7 +266,7 @@ class Livre extends Model
 
      * @param  int $auteur_id
      * @param  int $maison_edition_id
-     * @param  int $annee_id
+     
      * @param  int $categorie_livre_id
      * @param  int $annee_edition_id
 
@@ -282,7 +279,7 @@ class Livre extends Model
     public static function getTotal(
         $auteur_id = null,
         $maison_edition_id = null,
-        $annee_id = null,
+       
         $categorie_livre_id = null,
         $annee_edition_id = null
 
@@ -307,10 +304,7 @@ class Livre extends Model
             }
 
 
-            if ($annee_id != null) {
-
-                $query->where('annee_id', '=', $annee_id);
-            }
+         
 
 
 
@@ -339,16 +333,7 @@ class Livre extends Model
 
 
 
-    /**
-     * Obtenir une année
-     *
-     */
-    public function annee()
-    {
 
-
-        return $this->belongsTo(Annee::class, 'annee_id');
-    }
 
 
 

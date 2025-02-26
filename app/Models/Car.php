@@ -28,11 +28,9 @@ class Car extends Model
 
 
         'date_souscription',
-        'montant_annuel_prevu',
-        'destination',
         'adresse_map',
         'annee_id',
-        'inscription_id',
+        'souscription_id',
         'ligne_id',
         'zone_id',
 
@@ -49,12 +47,10 @@ class Car extends Model
      *
 
      * @param  date $date_souscription
-     * @param  float $montant_annuel_prevu
-     * @param  string $destination
-
-     * @param  string $adresse_map
+     * @param  text $adresse_map
      * @param  int $annee_id
-     * @param  int $inscription_id
+
+     * @param  int $souscription_id
      * @param  int $ligne_id
      * @param  int $zone_id
 
@@ -66,11 +62,9 @@ class Car extends Model
 
     public static function addCar(
         $date_souscription,
-        $montant_annuel_prevu,
-        $destination,
         $adresse_map,
         $annee_id,
-        $inscription_id,
+        $souscription_id,
         $ligne_id,
         $zone_id
 
@@ -80,13 +74,12 @@ class Car extends Model
 
 
         $car->date_souscription = $date_souscription;
-        $car->montant_annuel_prevu = $montant_annuel_prevu;
-        $car->destination = $destination;
+      
         $car->adresse_map = $adresse_map;
 
 
         $car->annee_id = $annee_id;
-        $car->inscription_id = $inscription_id;
+        $car->souscription_id = $souscription_id;
         $car->ligne_id = $ligne_id;
         $car->zone_id = $zone_id;
 
@@ -112,29 +105,29 @@ class Car extends Model
     /**
      * Update d'une Car scolaire
 
-     * @param  date $date_souscription
-     * @param  float $montant_annuel_prevu
-     * @param  string $destination
+     
+     
+     *
 
-     * @param  string $adresse_map
+     * @param  date $date_souscription
+     * @param  text $adresse_map
      * @param  int $annee_id
-     * @param  int $inscription_id
+
+     * @param  int $souscription_id
      * @param  int $ligne_id
      * @param  int $zone_id
 
 
 
-     * @param int $id
-     * @return  Car
+
+     * @return Car
      */
 
     public static function updateCar(
         $date_souscription,
-        $montant_annuel_prevu,
-        $destination,
         $adresse_map,
         $annee_id,
-        $inscription_id,
+        $souscription_id,
         $ligne_id,
         $zone_id,
 
@@ -148,12 +141,10 @@ class Car extends Model
 
 
             'date_souscription' => $date_souscription,
-            'montant_annuel_prevu' => $montant_annuel_prevu,
-            'destination' => $destination,
 
             'adresse_map' => $adresse_map,
             'annee_id' => $annee_id,
-            'inscription_id' => $inscription_id,
+            'souscription_id' => $souscription_id,
             'ligne_id' => $ligne_id,
             'zone_id' => $zone_id,
 
@@ -196,10 +187,9 @@ class Car extends Model
 
      * @param  int $annee_id
 
-     * @param  int $inscription_id
-     * @param  int $cycle_id
-     * @param  int $niveau_id
-     * @param  int $classe_id
+     * @param  int $souscription_id
+    
+     
      * @param  int $zone_id
      * @param  int $ligne_id
 
@@ -210,10 +200,8 @@ class Car extends Model
     public static function getListe(
 
         $annee_id = null,
-        $inscription_id = null,
-        $cycle_id = null,
-        $niveau_id = null,
-        $classe_id = null,
+        $souscription_id = null,
+        
         $ligne_id = null,
         $zone_id = null,
 
@@ -222,62 +210,42 @@ class Car extends Model
 
 
 
-        $query =  Car:: select('inscriptions.id as inscription_id', 'eleves.nom as nom_eleve', 'eleves.prenom as prenom_eleve', 'lignes.libelle as ligne', 'zones.libelle as zone','cycles.libelle as libelle_cycle',
-        'niveaux.libelle as niveau_libelle')
-
-        ->join('inscriptions','cars.inscription_id','=','inscriptions.id')
-        ->join('eleves','inscriptions.eleve_id','=','eleves.id')
-        ->join('cycles','inscriptions.cycle_id','=','cycles.id')
-        ->join('niveaux','inscriptions.niveau_id','=','niveaux.id')
-        ->join('lignes','lignes.id','=','cars.ligne_id')
-        ->join('zones','zones.id','=','cars.zone_id')
-
-
-        ->where('cars.etat', '!=', TypeStatus::SUPPRIME)
-
-
+        $query =  cars::where('etat', '!=', TypeStatus::SUPPRIME)
         ;
+
+         if ($date_souscription != null) {
+
+            $query->where('date_souscription', '=', $date_souscription);
+        }
+
+         if ($adresse_map != null) {
+
+            $query->where('adresse_map', '=', $adresse_map);
+        }
 
         if ($annee_id != null) {
 
-            $query->where('cars.annee_id', '=', $annee_id);
+            $query->where('annee_id', '=', $annee_id);
+        }
+
+        if ($souscription_id != null) {
+
+            $query->where('souscription_id', '=', $souscription_id);
         }
 
 
-        if ($inscription_id != null) {
 
-            $query->where('cars.inscription_id', '=', $inscription_id);
+        
+
+            if ($ligne_id != null) {
+
+            $query->where('ligne_id', '=', $ligne_id);
         }
 
-        if ($niveau_id != null) {
+         if ($zone_id != null) {
 
-            $query->where('inscriptions.niveau_id', '=', $niveau_id);
+            $query->where('zone_id', '=', $zone_id);
         }
-
-
-        if ($classe_id != null) {
-
-            $query->where('inscriptions.classe_id', '=', $classe_id);
-        }
-
-
-        if ($cycle_id!= null) {
-
-            $query->where('inscriptions.cycle_id', '=', $cycle_id);
-        }
-
-
-        if ($ligne_id!= null) {
-
-            $query->where('cars.ligne_id', '=', $ligne_id);
-        }
-
-
-        if ($zone_id!= null) {
-
-            $query->where('cars.zone_id', '=', $zone_id);
-        }
-
 
 
 
@@ -294,10 +262,8 @@ class Car extends Model
 
   * @param  int $annee_id
 
-     * @param  int $inscription_id
-     * @param  int $cycle_id
-     * @param  int $niveau_id
-     * @param  int $classe_id
+     * @param  int $souscription_id
+   
      * @param  int $zone_id
      * @param  int $ligne_id
 
@@ -305,12 +271,10 @@ class Car extends Model
      * @return  int $total
      */
 
-    public static function getTotal(
-        $annee_id = null,
-        $inscription_id = null,
-        $cycle_id = null,
-        $niveau_id = null,
-        $classe_id = null,
+ public static function getTotal(
+           $annee_id = null,
+        $souscription_id = null,
+       
         $ligne_id = null,
         $zone_id = null,
 
@@ -318,61 +282,50 @@ class Car extends Model
 
 
 
+
+
     ) {
 
-        $query =  Car:: select('inscriptions.id as inscription_id', 'eleves.nom as nom_eleve', 'eleves.prenom as prenom_eleve', 'lignes.libelle as ligne', 'zones.libelle as zone','cycles.libelle as libelle_cycle',
-        'niveaux.libelle as niveau_libelle')
-
-        ->join('inscriptions','cars.inscription_id','=','inscriptions.id')
-        ->join('eleves','inscriptions.eleve_id','=','eleves.id')
-        ->join('cycles','inscriptions.cycle_id','=','cycles.id')
-        ->join('niveaux','inscriptions.niveau_id','=','niveaux.id')
-        ->join('lignes','lignes.id','=','cars.ligne_id')
-        ->join('zones','zones.id','=','cars.zone_id')
+        $query =   DB::table('cars')
 
 
-        ->where('cars.etat', '!=', TypeStatus::SUPPRIME);
+            ->where('cars.etat', '!=', TypeStatus::SUPPRIME);
 
-        if ($annee_id != null) {
 
-            $query->where('cars.annee_id', '=', $annee_id);
+       if ($annee_id != null) {
+
+            $query->where('date_souscription', '=', $date_souscription);
+        }
+
+        if ($adresse_map != null) {
+
+            $query->where('adresse_map', '=', $adresse_map);
         }
 
 
-        if ($inscription_id != null) {
 
-            $query->where('cars.inscription_id', '=', $inscription_id);
-        }
+         if ($annee_id != null) {
 
-        if ($niveau_id != null) {
-
-            $query->where('inscriptions.niveau_id', '=', $niveau_id);
+            $query->where('annee_id', '=', $annee_id);
         }
 
 
-        if ($classe_id != null) {
+            if ($ souscription_id!= null) {
 
-            $query->where('inscriptions.classe_id', '=', $classe_id);
+            $query->where('souscription_id', '=', $souscription_id);
         }
 
 
-        if ($cycle_id!= null) {
+  if ($ ligne_id!= null) {
 
-            $query->where('inscriptions.cycle_id', '=', $cycle_id);
+            $query->where('ligne_id', '=', $ligne_id);
         }
 
 
-        if ($ligne_id!= null) {
+  if ($ zone_id!= null) {
 
-            $query->where('cars.ligne_id', '=', $ligne_id);
+            $query->where('zone_id', '=', $zone_id);
         }
-
-
-        if ($zone_id!= null) {
-
-            $query->where('cars.zone_id', '=', $zone_id);
-        }
-
 
 
 
@@ -390,6 +343,8 @@ class Car extends Model
     }
 
 
+    
+
 
     /**
      * Obtenir une année
@@ -404,29 +359,19 @@ class Car extends Model
 
 
     /**
-     * Obtenir un fournisseur
+     * Obtenir une souscription
      *
      */
-    public function inscription()
+    public function souscription_id()
     {
 
 
-        return $this->belongsTo(Inscription::class, 'inscription_id');
+        return $this->belongsTo(souscription::class, 'souscription_id');
     }
 
 
 
-    /**
-     * Obtenir un fournisseur
-     *
-     */
-    public function ligne()
-    {
-
-
-        return $this->belongsTo(Ligne::class, 'ligne_id');
-    }
-
+  
 
      /**
      * Obtenir un fournisseur

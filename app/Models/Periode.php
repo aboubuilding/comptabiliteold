@@ -13,32 +13,26 @@ class Periode extends Model
 {
     use HasFactory;
 
-    public function __construct(array $attributes=[])
+class Periode extends Model
+{
+    protected $table = 'periodes';
+
+    protected $fillable = [
+        'libelle',
+        'date_debut',
+        'date_fin',
+        'annee_id',
+        'statut',
+        'etat',
+    ];
+
+    public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->etat=TypeStatus::ACTIF;
+        $this->etat = 1; 
     }
+}
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var string[]
-     */
-    protected $fillable = [
-
-
-        'livre_id',
-        'inscription_id',
-        'annee_id',
-        'date_Periode',
-        'date_retour_Periode',
-        'date_retour_reel',
-        'statut_Periode',
-
-
-        'etat',
-
-    ];
 
 
 
@@ -46,7 +40,7 @@ class Periode extends Model
      * Ajouter une Periode
      *
 
-     * @param  int $livre_id
+     * @param  int $libelle
      * @param  int $inscription_id
      * @param  int $annee_id
      * @param  date $date_Periode
@@ -60,7 +54,7 @@ class Periode extends Model
      */
 
     public static function addPeriode(
-        $livre_id,
+        $libelle,
         $inscription_id,
         $annee_id,
         $date_Periode,
@@ -74,7 +68,7 @@ class Periode extends Model
         $Periode = new Periode();
 
 
-        $Periode->livre_id = $livre_id;
+        $Periode->libelle = $libelle;
         $Periode->inscription_id = $inscription_id;
         $Periode->annee_id = $annee_id;
         $Periode->date_Periode = $date_Periode;
@@ -105,7 +99,7 @@ class Periode extends Model
     /**
      * Update d'une Periode scolaire
 
-    * @param  int $livre_id
+    * @param  int $libelle
      * @param  int $inscription_id
      * @param  int $annee_id
      * @param  date $date_Periode
@@ -121,7 +115,7 @@ class Periode extends Model
      */
 
     public static function updatePeriode(
-        $livre_id,
+        $libelle,
         $inscription_id,
         $annee_id,
         $date_Periode,
@@ -137,7 +131,7 @@ class Periode extends Model
 
 
 
-            'livre_id' => $livre_id,
+            'libelle' => $libelle,
             'inscription_id' => $inscription_id,
             'annee_id' => $annee_id,
             'date_Periode' => $date_Periode,
@@ -179,7 +173,7 @@ class Periode extends Model
 
     /**
      * Retourne la liste des Periodes
-     * @param  int $livre_id
+     * @param  int $libelle
      * @param  int $inscription_id
      * @param  int $annee_id
 
@@ -189,7 +183,7 @@ class Periode extends Model
 
     public static function getListe(
 
-        $livre_id = null,
+        $libelle = null,
 
         $inscription_id = null,
         $annee_id = null
@@ -201,9 +195,9 @@ class Periode extends Model
         $query =  Periode::where('etat', '!=', TypeStatus::SUPPRIME)
         ;
 
-        if ($livre_id != null) {
+        if ($libelle != null) {
 
-            $query->where('livre_id', '=', $livre_id);
+            $query->where('libelle', '=', $libelle);
         }
 
         if ($inscription_id != null) {
@@ -229,7 +223,7 @@ class Periode extends Model
      * Retourne le nombre  des  activités
 
 
-    * @param  int $livre_id
+    * @param  int $libelle
      * @param  int $inscription_id
      * @param  int $annee_id
 
@@ -237,7 +231,7 @@ class Periode extends Model
      */
 
     public static function getTotal(
-        $livre_id = null,
+        $libelle = null,
 
         $inscription_id = null,
         $annee_id = null
@@ -253,9 +247,9 @@ class Periode extends Model
             ->where('Periodes.etat', '!=', TypeStatus::SUPPRIME);
 
 
-            if ($livre_id != null) {
+            if ($libelle != null) {
 
-                $query->where('livre_id', '=', $livre_id);
+                $query->where('libelle', '=', $libelle);
             }
 
             if ($inscription_id != null) {
@@ -314,7 +308,7 @@ class Periode extends Model
     {
 
 
-        return $this->belongsTo(Livre::class, 'livre_id');
+        return $this->belongsTo(Livre::class, 'libelle');
     }
 
 

@@ -34,7 +34,7 @@ class Paiement extends Model
         'motif_suppression',
         'telephone_payeur',
         'date_paiement',
-        'date_encaissement',
+      
         'statut_paiement',
         'mode_paiement',
         'inscription_id',

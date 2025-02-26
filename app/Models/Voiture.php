@@ -31,7 +31,7 @@ class Voiture extends Model
         'marque',
         'plaque',
         'nombre_place',
-        'annee_id',
+        'date_acquisition',
 
 
         'etat',
@@ -48,7 +48,7 @@ class Voiture extends Model
      * @param  string $marque
      * @param  string $plaque
      * @param  int $nombre_place
-     * @param  int $annee_id
+     * @param  int $date_acquisition
 
 
 
@@ -61,7 +61,7 @@ class Voiture extends Model
         $marque,
         $plaque,
         $nombre_place,
-        $annee_id
+        $date_acquisition
 
 
 
@@ -76,7 +76,7 @@ class Voiture extends Model
         $voiture->marque = $marque;
         $voiture->plaque = $plaque;
         $voiture->nombre_place = $nombre_place;
-        $voiture->annee_id = $annee_id;
+        $voiture->date_acquisition = $date_acquisition;
 
 
 
@@ -108,7 +108,7 @@ class Voiture extends Model
      * @param  string $marque
      * @param  string $plaque
      * @param  int $nombre_place
-     * @param  int $annee_id
+     * @param  int $date_acquisition
      *
      *
      * @param int $id
@@ -120,7 +120,7 @@ class Voiture extends Model
         $marque,
         $plaque,
         $nombre_place,
-        $annee_id,
+        $date_acquisition,
 
 
 
@@ -136,7 +136,7 @@ class Voiture extends Model
             'marque' => $marque,
             'plaque' => $plaque,
             'nombre_place' => $nombre_place,
-            'annee_id' => $annee_id,
+            'date_acquisition' => $date_acquisition,
 
 
 
@@ -177,7 +177,7 @@ class Voiture extends Model
 
 
 
-     * @param  int $annee_id
+     * @param  int $date_acquisition
 
 
 
@@ -190,7 +190,7 @@ class Voiture extends Model
 
 
 
-        $annee_id = null
+        $date_acquisition = null
 
 
 
@@ -205,9 +205,9 @@ class Voiture extends Model
 
 
 
-        if ($annee_id != null) {
+        if ($date_acquisition != null) {
 
-            $query->where('annee_id', '=', $annee_id);
+            $query->where('date_acquisition', '=', $date_acquisition);
         }
 
 
@@ -224,7 +224,7 @@ class Voiture extends Model
      *
      *
 
-     * * @param int $annee_id
+     * * @param int $date_acquisition
 
  *
      *
@@ -234,7 +234,7 @@ class Voiture extends Model
     public static function getTotal(
 
 
-        $annee_id = null
+        $date_acquisition = null
 
 
     ) {
@@ -247,9 +247,9 @@ class Voiture extends Model
 
 
 
-        if ($annee_id != null) {
+        if ($date_acquisition != null) {
 
-            $query->where('annee_id', '=', $annee_id);
+            $query->where('date_acquisition', '=', $date_acquisition);
         }
 
 

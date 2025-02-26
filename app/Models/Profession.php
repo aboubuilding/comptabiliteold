@@ -30,8 +30,6 @@ class Profession extends Model
         'libelle',
         'salaire_base',
 
-        'annee_id',
-
         'etat',
 
     ];
@@ -57,7 +55,6 @@ class Profession extends Model
         $libelle,
         $salaire_base,
 
-        $annee_id
 
 
     )
@@ -67,8 +64,6 @@ class Profession extends Model
 
         $profession->libelle = $libelle;
         $profession->salaire_base = $salaire_base;
-
-        $profession->annee_id = $annee_id;
 
 
         $profession->created_at = Carbon::now();
@@ -110,7 +105,6 @@ class Profession extends Model
         $libelle,
         $salaire_base,
 
-        $annee_id,
 
 
         $id)
@@ -124,7 +118,6 @@ class Profession extends Model
             'libelle' => $libelle,
             'salaire_base' => $salaire_base,
 
-            'annee_id' => $annee_id,
 
 
             'id' => $id,
@@ -169,7 +162,10 @@ class Profession extends Model
 
     public static function getListe(
 
-        $annee_id = null
+        $libelle= null,
+        $salaire_base = null
+
+
 
 
 
@@ -180,10 +176,16 @@ class Profession extends Model
         $query =  Profession::where('etat', '!=', TypeStatus::SUPPRIME)
         ;
 
-        if ($annee_id != null) {
+        if ($libelle != null) {
 
-            $query->where('annee_id', '=', $annee_id);
+            $query->where('libelle', '=', $libelle);
         }
+
+         if ($salaire_base != null) {
+
+            $query->where('salaire_base', '=', $salaire_base);
+        }
+
 
 
 
@@ -204,7 +206,10 @@ class Profession extends Model
      */
 
     public static function getTotal(
-        $annee_id = null
+        $libelle= null,
+        $salaire_base = null
+
+
 
 
 
@@ -219,10 +224,14 @@ class Profession extends Model
 
 
 
+        if ($libelle != null) {
 
-        if ($annee_id != null) {
+            $query->where('libelle', '=', $libelle);
+        }
 
-            $query->where('professions.annee_id', '=', $annee_id);
+         if ($salaire_base != null) {
+
+            $query->where('salaire_base', '=', $salaire_base);
         }
 
 

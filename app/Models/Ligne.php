@@ -30,7 +30,7 @@ class Ligne extends Model
         'libelle',
         'prix_minimal',
         'prix_plafond',
-
+        'quartier_id',
         'annee_id',
 
 
@@ -61,7 +61,7 @@ class Ligne extends Model
         $libelle,
         $prix_minimal,
         $prix_plafond,
-
+        $quartier_id,
         $annee_id
 
 
@@ -73,7 +73,7 @@ class Ligne extends Model
         $ligne->libelle = $libelle;
         $ligne->prix_minimal = $prix_minimal;
         $ligne->prix_plafond = $prix_plafond;
-
+        $ligne->quartier_id = $quartier_id;
         $ligne->annee_id = $annee_id;
 
         $ligne->created_at = Carbon::now();
@@ -113,7 +113,7 @@ class Ligne extends Model
           $libelle,
         $prix_minimal,
         $prix_plafond,
-
+        $quartier_id,
         $annee_id,
 
 
@@ -128,7 +128,7 @@ class Ligne extends Model
             'libelle' => $libelle,
             'prix_minimal' => $prix_minimal,
             'prix_plafond' => $prix_plafond,
-
+            'quartier_id' => $quartier_id
             'annee_id' => $annee_id,
 
 

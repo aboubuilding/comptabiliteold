@@ -34,7 +34,6 @@ class Caisse extends Model
         'date_cloture',
         'statut',
         'utilisateur_id',
-        'responsable_id',
         'annee_id',
 
 
@@ -55,7 +54,7 @@ class Caisse extends Model
      * @param  date $date_cloture
      * @param  int $statut
      * @param  int $utilisateur_id
-     * @param  int $responsable_id
+     
      * @param  int $annee_id
 
 
@@ -73,7 +72,6 @@ class Caisse extends Model
         $date_cloture,
         $statut,
         $utilisateur_id,
-        $responsable_id,
         $annee_id
 
 
@@ -89,7 +87,6 @@ class Caisse extends Model
         $caisse->date_cloture = $date_cloture;
         $caisse->statut = $statut;
         $caisse->utilisateur_id = $utilisateur_id;
-        $caisse->responsable_id = $responsable_id;
         $caisse->annee_id = $annee_id;
 
 
@@ -122,7 +119,7 @@ class Caisse extends Model
      * @param  date $date_cloture
      * @param  int $statut
      * @param  int $utilisateur_id
-     * @param  int $responsable_id
+    
      * @param  int $annee_id
 
 
@@ -132,14 +129,13 @@ class Caisse extends Model
      */
 
     public static function updateCaisse(
-      $libelle,
+        $libelle,
         $solde_initial,
         $solde_final,
         $date_ouverture,
         $date_cloture,
         $statut,
         $utilisateur_id,
-        $responsable_id,
         $annee_id,
 
         $id)
@@ -157,7 +153,7 @@ class Caisse extends Model
             'date_cloture' => $date_cloture,
             'statut' => $statut,
             'utilisateur_id' => $utilisateur_id,
-            'responsable_id' => $responsable_id,
+            
             'annee_id' => $annee_id,
 
             'id' => $id,
@@ -208,7 +204,7 @@ class Caisse extends Model
 
         $statut = null,
         $utilisateur_id = null,
-        $responsable_id = null,
+        
         $annee_id = null
 
 
@@ -233,10 +229,6 @@ class Caisse extends Model
             $query->where('utilisateur_id', '=', $utilisateur_id);
         }
 
-         if ($responsable_id != null) {
-
-            $query->where('responsable_id', '=', $responsable_id);
-        }
 
          if ($annee_id != null) {
 
@@ -259,7 +251,7 @@ class Caisse extends Model
 
     * @param  int $statut
      * @param  int $utilisateur_id
-     * @param  int $responsable_id
+    
      * @param  int $annee_id
 
 
@@ -270,7 +262,7 @@ class Caisse extends Model
     public static function getTotal(
         $statut = null,
         $utilisateur_id = null,
-        $responsable_id = null,
+      
         $annee_id = null
 
 
@@ -295,10 +287,7 @@ class Caisse extends Model
         }
 
 
- if ($responsable_id != null) {
-
-            $query->where('responsable_id', '=', $responsable_id);
-        }
+ 
 
 
  if ($annee_id != null) {
@@ -334,17 +323,7 @@ class Caisse extends Model
     }
 
 
-    /**
-     * Obtenir une année
-     *
-     */
-    public function responsable()
-    {
-
-
-        return $this->belongsTo(User::class, 'responsable_id');
-    }
-
+    
 
      /**
      * Obtenir un utilisateur

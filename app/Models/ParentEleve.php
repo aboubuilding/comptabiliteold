@@ -36,7 +36,7 @@ class ParentEleve extends Model
         'role',
         'annee_id',
         'nationalite_id',
-        'quartier',
+        'quartier_id_id',
         'adresse',
         'whatsapp',
         'email',
@@ -60,7 +60,7 @@ class ParentEleve extends Model
      * @param  int $role
      * @param int $annee_id
      * @param int $nationalite_id
-     * @param string $quartier
+     * @param string $quartier_id_id
      * @param string $adresse
      * @param string $email
      *
@@ -78,7 +78,7 @@ class ParentEleve extends Model
         $role,
         $annee_id,
         $nationalite_id,
-        $quartier,
+        $quartier_id,
         $adresse,
         $email
 
@@ -96,7 +96,7 @@ class ParentEleve extends Model
         $parenteleve->role = $role;
         $parenteleve->annee_id = $annee_id;
         $parenteleve->nationalite_id = $nationalite_id;
-        $parenteleve->quartier = $quartier;
+        $parenteleve->quartier_id = $quartier_id;
         $parenteleve->adresse = $adresse;
         $parenteleve->email = $email;
         $parenteleve->created_at = Carbon::now();
@@ -130,7 +130,7 @@ class ParentEleve extends Model
      * @param  int $role
      * @param  int $annee_id
      * @param int $nationalite_id
-     * @param string $quartier
+     * @param string $quartier_id
      * @param string $adresse
      * @param string $email
      *
@@ -150,7 +150,7 @@ class ParentEleve extends Model
         $role,
         $annee_id,
         $nationalite_id,
-        $quartier,
+        $quartier_id,
         $adresse,
         $email,
         $id
@@ -168,7 +168,7 @@ class ParentEleve extends Model
             'role' => $role,
             'annee_id' => $annee_id,
             'nationalite_id' => $nationalite_id,
-            'quartier' => $quartier,
+            'quartier_id' => $quartier_id,
             'adresse' => $adresse,
             'email' => $email,
             'id' => $id,

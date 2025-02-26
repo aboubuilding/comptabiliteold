@@ -35,7 +35,7 @@ class Detail extends Model
         'frais_ecole_id',
         'statut_paiement',
         'annee_id',
-        'souscription_id',
+        
         'caisse_id',
         'comptable_id',
         'caissier_id',
@@ -62,7 +62,7 @@ class Detail extends Model
      * @param  int $frais_ecole_id
      * @param  int $statut_paiement
      * @param  int $annee_id
-     * @param  int $souscription_id
+     
      * @param  int $caisse_id
      * @param  int $comptable_id
      * @param  int $caissier_id
@@ -80,7 +80,7 @@ class Detail extends Model
         $frais_ecole_id,
         $statut_paiement,
         $annee_id,
-        $souscription_id,
+        
         $caisse_id,
         $comptable_id,
         $caissier_id,
@@ -102,7 +102,7 @@ class Detail extends Model
         $detail->frais_ecole_id = $frais_ecole_id;
         $detail->statut_paiement = $statut_paiement;
         $detail->annee_id = $annee_id;
-        $detail->souscription_id = $souscription_id;
+        
         $detail->caisse_id = $caisse_id;
         $detail->comptable_id = $comptable_id;
         $detail->caissier_id = $caissier_id;
@@ -140,7 +140,6 @@ class Detail extends Model
      * @param  int $statut_paiement
      * @param  int $annee_id
 
-* @param int $souscription_id
      * @param int $caisse_id
      * @param int $comptable_id
      * @param int $caissier_id
@@ -162,7 +161,6 @@ class Detail extends Model
         $statut_paiement,
         $annee_id,
 
-         $souscription_id,
          $caisse_id,
          $comptable_id,
          $caissier_id,
@@ -186,7 +184,7 @@ class Detail extends Model
             'frais_ecole_id' => $frais_ecole_id,
             'statut_paiement' => $statut_paiement,
             'annee_id' => $annee_id,
-            'souscription_id' => $souscription_id,
+            
             'caisse_id' => $caisse_id,
             'comptable_id' => $comptable_id,
             'caissier_id' => $caissier_id,
@@ -235,10 +233,12 @@ class Detail extends Model
      * @param  int $frais_ecole_id
      * @param  int $statut_paiement
      * @param  int $annee_id
-     * @param  int $souscription_id
+     
      * @param  int $caisse_id
      * @param  int $comptable_id
      * @param  int $caissier_id
+     * @param  date $date_paiement
+     * @param  date $date_encaissement
 
 
      *
@@ -253,10 +253,12 @@ class Detail extends Model
         $frais_ecole_id = null,
         $statut_paiement = null,
         $annee_id = null,
-        $souscription_id = null,
+        
         $caisse_id= null,
         $comptable_id = null,
         $caissier_id = null,
+        $date_paiement = null,
+        $date_encaissement = null,
 
 
     ) {
@@ -301,11 +303,7 @@ class Detail extends Model
         }
 
 
-        if ($souscription_id != null) {
-
-            $query->where('souscription_id', '=', $souscription_id);
-        }
-
+       
 
         if ($caisse_id != null) {
 
@@ -323,6 +321,16 @@ class Detail extends Model
             $query->where('caissier_id', '=', $caissier_id);
         }
 
+         if ($date_paiement!= null) {
+
+            $query->where('date_paiement', '=', $date_paiement);
+        }
+
+
+         if ($date_encaissement!= null) {
+
+            $query->where('date_encaissement', '=', $date_encaissement);
+        }
 
 
 
@@ -362,7 +370,9 @@ class Detail extends Model
          $souscription_id = null,
          $caisse_id= null,
          $comptable_id = null,
-         $caissier_id = null
+         $caissier_id = null,
+         $date_paiement = null,
+         $date_encaissement = null
 
 
 
@@ -408,10 +418,7 @@ class Detail extends Model
 
 
 
-        if ($souscription_id != null) {
-
-            $query->where('souscription_id', '=', $souscription_id);
-        }
+       
 
 
         if ($caisse_id != null) {
@@ -430,7 +437,17 @@ class Detail extends Model
             $query->where('caissier_id', '=', $caissier_id);
         }
 
+          if ($date_paiement!= null) {
 
+            $query->where('date_paiement', '=', $date_paiement);
+        }
+
+
+
+          if ($date_encaissement!= null) {
+
+            $query->where('date_encaissement', '=', $date_encaissement);
+        }
 
         $total = $query->count();
 
@@ -495,17 +512,7 @@ class Detail extends Model
     }
 
 
-    /**
-     * Obtenir un utilisateur
-     *
-     */
-    public function souscription()
-    {
-
-
-        return $this->belongsTo(Souscription::class, 'souscription_id');
-    }
-
+    
 
     /**
      * Obtenir un utilisateur
@@ -545,6 +552,30 @@ class Detail extends Model
     }
 
 
+
+
+    /**
+     * Obtenir un utilisateur
+     *
+     */
+    public function date_paiement()
+    {
+
+
+        return $this->belongsTo(User::class, 'date_paiement');
+    }
+
+
+    /**
+     * Obtenir un utilisateur
+     *
+     */
+    public function date_encaissement()
+    {
+
+
+        return $this->belongsTo(User::class, 'date_encaissement');
+    }
     /**
      * Retourne le motant total  des  paiements par type de frais  ...
 

@@ -26,12 +26,10 @@ class Cantine extends Model
      */
     protected $fillable = [
 
-
-        'date_souscription',
-        'montant_annuel_prevu',
-        'type_offre',
+        'libelle',
+        'montant',
         'annee_id',
-        'inscription_id',
+        
 
 
 
@@ -45,13 +43,10 @@ class Cantine extends Model
      * Ajouter un Cantine
      *
 
-     * @param  date $date_souscription
-     * @param  string $montant_annuel_prevu
-     * @param  string $type_offre
+     * @param  string $libelle
+     * @param  string $montant
 
      * @param  int $annee_id
-     * @param  int $inscription_id
-
 
 
 
@@ -59,24 +54,21 @@ class Cantine extends Model
      */
 
     public static function addCantine(
-        $date_souscription,
-        $montant_annuel_prevu,
-        $type_offre,
+        $libelle,
+        $montant,
         $annee_id,
-        $inscription_id
+        $etat
 
     )
     {
         $Cantine = new Cantine();
 
 
-        $Cantine->date_souscription = $date_souscription;
-        $Cantine->montant_annuel_prevu = $montant_annuel_prevu;
-        $Cantine->type_offre = $type_offre;
-
+        $Cantine->libelle = $libelle;
+        $Cantine->montant = $montant;
 
         $Cantine->annee_id = $annee_id;
-        $Cantine->inscription_id = $inscription_id;
+        $Cantine->etat = $etat;
 
         $Cantine->created_at = Carbon::now();
 
@@ -100,13 +92,14 @@ class Cantine extends Model
     /**
      * Update d'une Cantine scolaire
 
-    * @param  date $date_souscription
-     * @param  string $montant_annuel_prevu
-     * @param  string $type_offre
+    * @param  string $libelle
+     * @param  string $montant
+    
 
 
      * @param  int $annee_id
-     * @param  int $inscription_id
+     * @param  int $etat
+    
 
 
      * @param int $id
@@ -114,12 +107,12 @@ class Cantine extends Model
      */
 
     public static function updateCantine(
-        $date_souscription,
-        $montant_annuel_prevu,
+        $libelle,
+        $montant,
         $type_offre,
 
         $annee_id,
-        $inscription_id,
+        
 
 
         $id)
@@ -130,12 +123,12 @@ class Cantine extends Model
 
 
 
-            'date_souscription' => $date_souscription,
-            'montant_annuel_prevu' => $montant_annuel_prevu,
-            'type_offre' => $type_offre,
+            'libelle' => $libelle,
+            'montant' => $montant,
+            
 
             'annee_id' => $annee_id,
-            'inscription_id' => $inscription_id,
+        
 
 
 
@@ -186,24 +179,16 @@ class Cantine extends Model
 
     public static function getListe(
 
+
         $annee_id = null,
-        $inscription_id = null,
-        $cycle_id = null,
-        $niveau_id = null,
-        $classe_id = null
+       
 
 
     ) {
 
 
 
-        $query =  Cantine:: select('cantines.inscription_id', 'cantines.date_souscription', 'cantines.montant_annuel_prevu', 'eleves.nom as nom_eleve', 'eleves.prenom as prenom_eleve', 'cantines.type_offre as offre','cycles.libelle as libelle_cycle',
-        'niveaux.libelle as niveau_libelle')
-
-        ->join('inscriptions','cantines.inscription_id','=','inscriptions.id')
-        ->join('eleves','inscriptions.eleve_id','=','eleves.id')
-        ->join('cycles','inscriptions.cycle_id','=','cycles.id')
-        ->join('niveaux','inscriptions.niveau_id','=','niveaux.id')
+        
 
 
         ->where('cantines.etat', '!=', TypeStatus::SUPPRIME)
@@ -219,25 +204,19 @@ class Cantine extends Model
 
         if ($inscription_id != null) {
 
-            $query->where('cantines.inscription_id', '=', $inscription_id);
+            $query->where('cantines.libelle', '=', $libelle);
         }
 
-        if ($niveau_id != null) {
+        
+  if ($inscription_id != null) {
 
-            $query->where('inscriptions.niveau_id', '=', $niveau_id);
+            $query->where('cantines.montant', '=', $montant);
         }
 
-
-        if ($classe_id != null) {
-
-            $query->where('inscriptions.classe_id', '=', $classe_id);
-        }
+      
 
 
-        if ($cycle_id!= null) {
-
-            $query->where('inscriptions.cycle_id', '=', $cycle_id);
-        }
+       
 
 
 
@@ -253,20 +232,17 @@ class Cantine extends Model
 
 
    * @param  int $annee_id
-     * @param  int $fournisseur_id
-     * @param  int $inscription_id
-     * @param  int $statut_livraison
+   * @param  int $libelle
+     * @param  int montant
+    
 
 
-     * @return  int $total
+     
      */
 
     public static function getTotal(
         $annee_id = null,
-        $inscription_id = null,
-        $cycle_id = null,
-        $niveau_id = null,
-        $classe_id = null
+       
 
 
 
@@ -274,13 +250,7 @@ class Cantine extends Model
 
     ) {
 
-        $query =  Cantine:: select('inscriptions.id as inscription_id', 'eleves.nom as nom_eleve', 'eleves.prenom as prenom_eleve', 'cantines.type_offre as offre','cycles.libelle as libelle_cycle',
-        'niveaux.libelle as niveau_libelle', 'cantines.')
-
-        ->join('inscriptions','cantines.inscription_id','=','inscriptions.id')
-        ->join('eleves','inscriptions.eleve_id','=','eleves.id')
-        ->join('cycles','inscriptions.cycle_id','=','cycles.id')
-        ->join('niveaux','inscriptions.niveau_id','=','niveaux.id')
+        
 
 
 
@@ -289,25 +259,14 @@ class Cantine extends Model
 
         if ($inscription_id != null) {
 
-            $query->where('cantines.inscription_id', '=', $inscription_id);
+            $query->where('cantines.libelle', '=', $libelle);
         }
 
         if ($niveau_id != null) {
 
-            $query->where('inscriptions.niveau_id', '=', $niveau_id);
+            $query->where('cantines.montant', '=', $niveau_id);
         }
 
-
-        if ($classe_id != null) {
-
-            $query->where('inscriptions.classe_id', '=', $classe_id);
-        }
-
-
-        if ($cycle_id!= null) {
-
-            $query->where('inscriptions.cycle_id', '=', $cycle_id);
-        }
 
 
 
@@ -342,13 +301,7 @@ class Cantine extends Model
      * Obtenir un fournisseur
      *
      */
-    public function inscription()
-    {
-
-
-        return $this->belongsTo(Inscription::class, 'inscription_id');
-    }
-
+    
 
 
 

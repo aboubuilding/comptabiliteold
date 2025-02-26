@@ -30,7 +30,7 @@ class Tranche extends Model
         'libelle',
         'date_butoire',
         'frais_ecole_id',
-        'type_frais',
+        'type_paiement_id',
         'taux',
 
 
@@ -49,7 +49,7 @@ class Tranche extends Model
      * @param  date $libelle
      * @param  float $date_butoire
      * @param  int $frais_ecole_id
-     * @param  int $type_frais
+     * @param  int $type_paiement_id
      * @param  int $taux
 
 
@@ -63,7 +63,7 @@ class Tranche extends Model
         $libelle,
         $date_butoire,
         $frais_ecole_id,
-        $type_frais,
+        $type_paiement_id,
         $taux
 
 
@@ -77,7 +77,7 @@ class Tranche extends Model
         $tranche->libelle = $libelle;
         $tranche->date_butoire = $date_butoire;
         $tranche->frais_ecole_id = $frais_ecole_id;
-        $tranche->type_frais = $type_frais;
+        $tranche->type_paiement_id = $type_paiement_id;
         $tranche->taux = $taux;
 
 
@@ -107,7 +107,7 @@ class Tranche extends Model
      ** @param date $libelle
      * * @param float $date_butoire
      * * @param int $frais_ecole_id
-     * * @param int $type_frais
+     * * @param int $type_paiement_id
      * * @param int $taux
 
      *
@@ -120,7 +120,7 @@ class Tranche extends Model
         $libelle,
         $date_butoire,
         $frais_ecole_id,
-        $type_frais,
+        $type_paiement_id,
         $taux,
 
 
@@ -136,7 +136,7 @@ class Tranche extends Model
             'libelle' => $libelle,
             'date_butoire' => $date_butoire,
             'frais_ecole_id' => $frais_ecole_id,
-            'type_frais' => $type_frais,
+            'type_paiement_id' => $type_paiement_id,
             'taux' => $taux,
 
 
@@ -190,7 +190,7 @@ class Tranche extends Model
 
 
         $frais_ecole_id = null,
-        $type_frais = null
+        $type_paiement_id = null
 
 
     ) {
@@ -210,9 +210,9 @@ class Tranche extends Model
 
 
 
-          if ($type_frais != null) {
+          if ($type_paiement_id != null) {
 
-            $query->where('type_frais', '=', $type_frais);
+            $query->where('type_paiement_id', '=', $type_paiement_id);
         }
 
 

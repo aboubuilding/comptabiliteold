@@ -26,15 +26,16 @@ class Vente extends Model
      */
     protected $fillable = [
 
-
+        'libelle',
         'date_vente',
         'quantite',
         'annee_id',
-        'inscription_id',
-        'paiement_id',
+        'montant',
+        
+        'personnel_id',
         'produit_id',
-        'detail_id',
-        'utilisateur_id',
+        
+        'boutique_id',
 
 
         'etat',
@@ -45,16 +46,16 @@ class Vente extends Model
 
     /**
      * Ajouter une Vente
-     *
-
+     
+     * @param  string $libelle
      * @param  date $date_vente
      * @param  int $quantite
      * @param  int $annee_id
-     * @param  int $inscription_id
-     * @param  int $paiement_id
+     * @param  float $montant
+     
      * @param  int $produit_id
-     * @param  int $detail_id
-     * @param  int $utilisateur_id
+     * @param  int $personnel_id
+     * @param  int $boutique_id
 
 
 
@@ -63,32 +64,33 @@ class Vente extends Model
 
     public static function addVente (
 
+        $libelle,
         $date_vente,
         $quantite,
         $annee_id,
-        $inscription_id,
-        $paiement_id,
+         $montant,
+        $personnel_id,
         $produit_id,
-        $detail_id,
-        $utilisateur_id,
+       
+        $boutique_id,
 
 
-
+        $id
 
 
     )
     {
         $vente = new Vente();
 
-
+        $vente->libelle = $libelle;
         $vente->date_vente = $date_vente;
         $vente->quantite = $quantite;
         $vente->annee_id = $annee_id;
-        $vente->inscription_id = $inscription_id;
-        $vente->paiement_id = $paiement_id;
+        $vente->montant = $montant;
+        $vente->personnel_id = $personnel_id;
         $vente->produit_id = $produit_id;
-        $vente->detail_id = $detail_id;
-        $vente->utilisateur_id = $utilisateur_id;
+        
+        $vente->boutique_id = $boutique_id;
 
 
 
@@ -116,29 +118,31 @@ class Vente extends Model
      *
      *
      *
- * @param date $date_vente
-     * * @param int $quantite
-     * * @param int $annee_id
-     * * @param int $inscription_id
-     * * @param int $paiement_id
-     * * @param int $produit_id
-     * * @param int $detail_id
-     * * @param int $utilisateur_id
- *
+     @param  string $libelle
+     * @param  date $date_vente
+     * @param  int $quantite
+     * @param  int $annee_id
+     * @param  float $montant
+     
+     * @param  int $produit_id
+     * @param  int $personnel_id
+     * @param  int $boutique_id
      *
      * @param int $id
      * @return  Vente
      */
 
     public static function updateVente(
+         $libelle,
         $date_vente,
         $quantite,
         $annee_id,
-        $inscription_id,
-        $paiement_id,
+         $montant,
+        $personnel_id,
         $produit_id,
-        $detail_id,
-        $utilisateur_id,
+       
+        $boutique_id,
+
 
 
 
@@ -148,16 +152,16 @@ class Vente extends Model
 
         return   $vente= Vente::findOrFail($id)->update([
 
-
+            'libelle' => $libelle,
 
             'date_vente' => $date_vente,
             'quantite' => $quantite,
             'annee_id' => $annee_id,
-            'inscription_id' => $inscription_id,
-            'paiement_id' => $paiement_id,
+            'montant' => $montant,
+            'personnel_id' => $personnel_id,
             'produit_id' => $produit_id,
-            'detail_id' => $detail_id,
-            'utilisateur_id' => $utilisateur_id,
+            
+            'boutique_id' => $boutique_id,
 
 
             'id' => $id,
@@ -198,10 +202,10 @@ class Vente extends Model
 
      * @param  int $annee_id
      * @param  int $inscription_id
-     * @param  int $paiement_id
+     * @param  int $personnel_id
      * @param  int $produit_id
      * @param  int $detail_id
-     * @param  int $utilisateur_id
+     * @param  int $boutique_id
 
 
 
@@ -212,16 +216,22 @@ class Vente extends Model
 
     public static function getListe(
 
+         $libelle,
+        $date_vente,
+        $quantite,
+        $annee_id,
+         $montant,
+        $personnel_id,
+        $produit_id,
+       
+        $boutique_id,
 
-        $annee_id = null,
-        $inscription_id = null,
-        $paiement_id = null,
-        $produit_id = null,
-        $detail_id = null,
-        $utilisateur_id = null
 
 
-    ) {
+
+        $id)
+
+        {
 
 
 
@@ -242,9 +252,9 @@ class Vente extends Model
         }
 
 
-        if ($paiement_id != null) {
+        if ($personnel_id != null) {
 
-            $query->where('paiement_id', '=', $paiement_id);
+            $query->where('personnel_id', '=', $personnel_id);
         }
 
 
@@ -261,9 +271,9 @@ class Vente extends Model
         }
 
 
-         if ($utilisateur_id != null) {
+         if ($boutique_id != null) {
 
-            $query->where('utilisateur_id', '=', $utilisateur_id);
+            $query->where('boutique_id', '=', $boutique_id);
         }
 
 
@@ -281,10 +291,10 @@ class Vente extends Model
 
      * @param int $annee_id
      * * @param int $inscription_id
-     * * @param int $paiement_id
+     * * @param int $personnel_id
      * * @param int $produit_id
      * * @param int $detail_id
-     * * @param int $utilisateur_id
+     * * @param int $boutique_id
  *
      *
      * @return  int $total
@@ -294,10 +304,10 @@ class Vente extends Model
 
         $annee_id = null,
         $inscription_id = null,
-        $paiement_id = null,
+        $personnel_id = null,
         $produit_id = null,
         $detail_id = null,
-        $utilisateur_id = null
+        $boutique_id = null
 
 
 
@@ -323,9 +333,9 @@ class Vente extends Model
         }
 
 
-        if ($paiement_id != null) {
+        if ($personnel_id != null) {
 
-            $query->where('paiement_id', '=', $paiement_id);
+            $query->where('personnel_id', '=', $personnel_id);
         }
 
 
@@ -344,9 +354,9 @@ class Vente extends Model
         }
 
 
-         if ($utilisateur_id != null) {
+         if ($boutique_id != null) {
 
-            $query->where('utilisateur_id', '=', $utilisateur_id);
+            $query->where('boutique_id', '=', $boutique_id);
         }
 
 
@@ -393,11 +403,11 @@ class Vente extends Model
      * Obtenir une année
      *
      */
-    public function paiement()
+    public function personnel()
     {
 
 
-        return $this->belongsTo(Paiement::class, 'paiement_id');
+        return $this->belongsTo(personnel::class, 'personnel_id');
     }
 
 
@@ -406,11 +416,11 @@ class Vente extends Model
      * Obtenir un user  
      *
      */
-    public function utilisateur()
+    public function boutique()
     {
 
 
-        return $this->belongsTo(User::class, 'utilisateur_id');
+        return $this->belongsTo(User::class, 'boutique_id');
     }
 
 
@@ -439,7 +449,7 @@ class Vente extends Model
 
      * @param int $annee_id
      * * @param int $inscription_id
-     * * @param int $paiement_id
+     * * @param int $personnel_id
      * * @param int $produit_id
      *
      *
@@ -450,7 +460,7 @@ class Vente extends Model
 
         $annee_id = null,
         $inscription_id = null,
-        $paiement_id = null,
+        $personnel_id = null,
         $produit_id = null
 
 
@@ -463,7 +473,7 @@ class Vente extends Model
 
         $total = 0;
         $ventes  = Vente::getListe(
-            $annee_id, $inscription_id, $paiement_id, $produit_id
+            $annee_id, $inscription_id, $personnel_id, $produit_id
         );
 
 
@@ -493,7 +503,7 @@ class Vente extends Model
 
      * @param int $annee_id
      * * @param int $inscription_id
-     * * @param int $paiement_id
+     * * @param int $personnel_id
      * * @param int $produit_id
      *
      *
@@ -504,7 +514,7 @@ class Vente extends Model
 
         $annee_id = null,
         $inscription_id = null,
-        $paiement_id = null,
+        $personnel_id = null,
         $produit_id = null
 
 
@@ -517,7 +527,7 @@ class Vente extends Model
 
         $total = 0;
         $ventes  = Vente::getListe(
-            $annee_id, $inscription_id, $paiement_id, $produit_id
+            $annee_id, $inscription_id, $personnel_id, $produit_id
         );
 
 

@@ -27,7 +27,7 @@ class Paie extends Model
     protected $fillable = [
 
 
-        'employe_id',
+        'personnel_id',
         'periode_id',
         'avantage_concede',
         'prelevement_mensuel',
@@ -44,7 +44,7 @@ class Paie extends Model
      * Ajouter une Paie
      *
 
-     * @param  int $employe_id
+     * @param  int $personnel_id
      * @param  int $periode_id
      * @param  int $avantage_concede
      * @param  int $prelevement_mensuel
@@ -56,7 +56,7 @@ class Paie extends Model
      */
 
     public static function addPaie(
-        $employe_id,
+        $personnel_id,
         $periode_id,
         $avantage_concede,
         $prelevement_mensuel,
@@ -67,7 +67,7 @@ class Paie extends Model
         $paie = new Paie();
 
 
-        $paie->employe_id = $employe_id;
+        $paie->personnel_id = $personnel_id;
         $paie->periode_id = $periode_id;
         $paie->avantage_concede = $avantage_concede;
         $paie->prelevement_mensuel = $prelevement_mensuel;
@@ -96,7 +96,7 @@ class Paie extends Model
     /**
      * Update d'une Paie scolaire
 
-    * @param  int $employe_id
+    * @param  int $personnel_id
      * @param  int $periode_id
      * @param  int $avantage_concede
      * @param  int $prelevement_mensuel
@@ -110,7 +110,7 @@ class Paie extends Model
      */
 
     public static function updatePaie(
-        $employe_id,
+        $personnel_id,
         $periode_id,
         $avantage_concede,
         $prelevement_mensuel,
@@ -124,7 +124,7 @@ class Paie extends Model
 
 
 
-            'employe_id' => $employe_id,
+            'personnel_id' => $personnel_id,
             'periode_id' => $periode_id,
             'avantage_concede' => $avantage_concede,
             'prelevement_mensuel' => $prelevement_mensuel,
@@ -164,7 +164,7 @@ class Paie extends Model
 
     /**
      * Retourne la liste des Paies
-     * @param  int $employe_id
+     * @param  int $personnel_id
      * @param  int $periode_id
      * @param  int $annee_id
 
@@ -174,7 +174,7 @@ class Paie extends Model
 
     public static function getListe(
 
-        $employe_id = null,
+        $personnel_id = null,
 
         $periode_id = null,
         $annee_id = null
@@ -186,9 +186,9 @@ class Paie extends Model
         $query =  Paie::where('etat', '!=', TypeStatus::SUPPRIME)
         ;
 
-        if ($employe_id != null) {
+        if ($personnel_id != null) {
 
-            $query->where('employe_id', '=', $employe_id);
+            $query->where('personnel_id', '=', $personnel_id);
         }
 
         if ($periode_id != null) {
@@ -214,7 +214,7 @@ class Paie extends Model
      * Retourne le nombre  des  activités
 
 
-    * @param  int $employe_id
+    * @param  int $personnel_id
      * @param  int $periode_id
      * @param  int $annee_id
 
@@ -222,7 +222,7 @@ class Paie extends Model
      */
 
     public static function getTotal(
-        $employe_id = null,
+        $personnel_id = null,
 
         $periode_id = null,
         $annee_id = null
@@ -238,9 +238,9 @@ class Paie extends Model
             ->where('paies.etat', '!=', TypeStatus::SUPPRIME);
 
 
-            if ($employe_id != null) {
+            if ($personnel_id != null) {
 
-                $query->where('employe_id', '=', $employe_id);
+                $query->where('personnel_id', '=', $personnel_id);
             }
 
             if ($periode_id != null) {
@@ -300,7 +300,7 @@ class Paie extends Model
     {
 
 
-        return $this->belongsTo(Employe::class, 'employe_id');
+        return $this->belongsTo(Employe::class, 'personnel_id');
     }
 
 

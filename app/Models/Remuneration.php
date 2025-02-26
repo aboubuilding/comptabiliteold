@@ -31,7 +31,7 @@ class Remuneration extends Model
         'salaire_base',
 
         'prime_anciennete',
-        'prime_anciennete',
+    
         'sursalaire',
         'bonus',
         'logement',

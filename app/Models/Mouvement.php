@@ -40,6 +40,7 @@ class Mouvement extends Model
         'depense_id',
         'annee_id',
         'file',
+        'statut_mouvement',
         'etat',
 
     ];
